@@ -1,20 +1,16 @@
 import React, {Component} from 'react';
 
-class JSONView extends Component {
+class JSONViewer extends Component {
 	constructor(props, context) {
 		super(props, context);
-		var store = this.props.store;
-		store.on('change', () => {
-			this.setState(store.getState());
-		});
-		this.state = store.getState();
 	}
+
 
 	renderHeaderByKeys(keys) {
 		return <thead>
 		<tr>{
-			keys.map((key) => {
-				return <th>{key}</th>
+			keys.map((key, i) => {
+				return <th key={i} style={this.constructor.styles.td}>{key}</th>
 			})
 		}</tr>
 		</thead>;
@@ -30,8 +26,8 @@ class JSONView extends Component {
 				{this.renderHeaderByKeys(Object.keys(obj))}
 				<tbody>
 				<tr>{
-					Object.keys(obj).map((key) => {
-						return this.renderTd(obj[key])
+					Object.keys(obj).map((key, i) => {
+						return this.renderTd(obj[key], i)
 					})
 				}</tr>
 				</tbody>
@@ -39,24 +35,26 @@ class JSONView extends Component {
 		}
 	}
 
-	renderTd(guess) {
-		return <td>{
-			(() => {
-				if (Array.isArray(guess) === true) {
-					if (this.checkIfArrayIsAOB(guess)) {
-						return this.aobToTable(guess)
-					} else {
-						return this.objToTable(guess)
-					}
-				} else {
-					if (typeof guess === "object") {
-						return this.objToTable(guess)
-					} else {
-						return guess + "";
-					}
-				}
-			})()
+	renderTd(guess, index) {
+		return <td key={index} style={this.constructor.styles.td}>{
+			this.decideAndRender(guess)
 		}</td>
+	}
+
+	decideAndRender(guess) {
+		if (Array.isArray(guess) === true) {
+			if (this.checkIfArrayIsAOB(guess)) {
+				return this.aobToTable(guess)
+			} else {
+				return this.objToTable(guess)
+			}
+		} else {
+			if (typeof guess === "object") {
+				return this.objToTable(guess)
+			} else {
+				return guess + "";
+			}
+		}
 	}
 
 	aobToTable(aob) {
@@ -65,10 +63,10 @@ class JSONView extends Component {
 			{this.renderHeaderByKeys(keys)}
 			<tbody>
 			{
-				aob.map((row)=> {
-					return <tr>{
-						keys.map((v)=> {
-							return this.renderTd(row[v]);
+				aob.map((row, j)=> {
+					return <tr key={j}>{
+						keys.map((v, i)=> {
+							return this.renderTd(row[v], i);
 						})
 					}</tr>;
 				})
@@ -89,28 +87,31 @@ class JSONView extends Component {
 		}
 	}
 
-	downloadState() {
-		var element = document.createElement('a');
-		element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(JSON.stringify(this.state)));
-		element.setAttribute('download', "state.json");
-		element.style.display = 'none';
-		document.body.appendChild(element);
-		element.click();
-		document.body.removeChild(element);
-	}
-
-//TODO - arning: Each child in an array or iterator should have a unique "key" prop. Check the render method of JSONView
 	render() {
 		return <div>
-			<div>
-				<button onClick={this.downloadState.bind(this)}>Download</button>
-			</div>
+			<pre style={{"display":"block"}}>{JSON.stringify(this.props.json, null, '  ')}</pre>
 			{
-				this.objToTable(this.state)
+				this.decideAndRender(this.props.json)
 			}
-			<pre style={{"display":"block"}}>{JSON.stringify(this.state, null, '  ')}</pre>
 		</div>;
 	}
 }
 
-export default JSONView;
+
+JSONViewer.styles = {
+	td: {
+		border: "1px solid #cccccc",
+		textAlign: "left",
+		margin: 0,
+		padding: "6px 13px"
+	},
+	th: {
+		border: "1px solid #cccccc",
+		textAlign: "left",
+		margin: 0,
+		padding: "6px 13px",
+		fontWeight: "bold"
+	}
+};
+
+export default JSONViewer;

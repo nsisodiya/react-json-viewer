@@ -3,6 +3,9 @@ React Component for View JSON in beautiful tabular format. See images below.
 
 # What
 
+![alt pic](https://raw.githubusercontent.com/hotelsoft/Sheet2AOB/master/pic1.png)
+![alt pic](https://raw.githubusercontent.com/hotelsoft/Sheet2AOB/master/pic2.png)
+
 # Install
 
 ```

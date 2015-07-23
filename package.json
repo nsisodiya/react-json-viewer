@@ -1,0 +1,24 @@
+{
+  "name": "react-json-viewer",
+  "version": "1.0.0",
+  "description": "react component for json viewing in tabular format",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nsisodiya/react-json-viewer.git"
+  },
+  "keywords": [
+    "react",
+    "react-component",
+    "json"
+  ],
+  "author": "Narendra Sisodiya <narendra@narendrasisodiya.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/nsisodiya/react-json-viewer/issues"
+  },
+  "homepage": "https://github.com/nsisodiya/react-json-viewer#readme"
+}

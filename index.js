@@ -101,17 +101,15 @@ class JSONViewer extends Component {
 	}
 
 	render() {
+		function _if_(x) {
+			return ((x === true) + 1) % 2;
+		}
+
 		return (
-				<div>{
-					(() => {
-						if (this.props.showjson === true) {
-							return <pre style={{'display': 'block'}}>{JSON.stringify(this.props.json, null, '  ')}</pre>
-						}
-					})()
-				}
-					{
-						this.decideAndRender(this.props.json)
-					}
+				<div>{[
+					[<pre>{JSON.stringify(this.props.json, null, ' ')}</pre>][_if_(this.props.showjson)],
+					this.decideAndRender(this.props.json)
+				]}
 				</div>
 		);
 	}

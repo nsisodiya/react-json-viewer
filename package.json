@@ -4,6 +4,7 @@
 	"description": "react component for json viewing in tabular format",
 	"main": "index.js",
 	"scripts": {
+		"lint": "eslint -c .eslintrc .",
 		"test": "echo \"Error: no test specified\" && exit 1"
 	},
 	"repository": {
@@ -23,5 +24,10 @@
 	"peerDependencies": {
 		"react": ">= 0.13.3"
 	},
-	"homepage": "https://github.com/nsisodiya/react-json-viewer#readme"
+	"homepage": "https://github.com/nsisodiya/react-json-viewer#readme",
+	"devDependencies": {
+		"babel-eslint": "^4.0.5",
+		"eslint": "^0.24.1",
+		"eslint-plugin-react": "^3.0.0"
+	}
 }

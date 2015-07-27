@@ -1,22 +1,24 @@
 import React, {Component} from 'react';
 
 class JSONViewer extends Component {
-	static propTypes = {
-		json: React.PropTypes.any.isRequired
-	}
-
 	constructor(props, context) {
 		super(props, context);
 	}
 
 	renderHeaderByKeys(keys) {
-		return (<thead>
-		<tr>{
-			keys.map((key, i) => {
-				return (<th key={i} style={this.constructor.styles.td}>{key}</th>);
-			})
-		}</tr>
-		</thead>);
+		return (
+				<thead>
+				<tr>{
+					keys.map((key, i) => {
+						return (
+								<th key={i} style={this.constructor.styles.td}>
+									{key}
+								</th>
+						);
+					})
+				}</tr>
+				</thead>
+		);
 	}
 
 	objToTable(obj) {
@@ -25,23 +27,27 @@ class JSONViewer extends Component {
 		} else if (JSON.stringify(obj) === '{}') {
 			return '{ }';
 		} else {
-			return (<table>
-				{this.renderHeaderByKeys(Object.keys(obj))}
-				<tbody>
-				<tr>{
-					Object.keys(obj).map((key, i) => {
-						return this.renderTd(obj[key], i);
-					})
-				}</tr>
-				</tbody>
-			</table>);
+			return (
+					<table>
+						{this.renderHeaderByKeys(Object.keys(obj))}
+						<tbody>
+						<tr>{
+							Object.keys(obj).map((key, i) => {
+								return this.renderTd(obj[key], i);
+							})
+						}</tr>
+						</tbody>
+					</table>
+			);
 		}
 	}
 
 	renderTd(guess, index) {
-		return (<td key={index} style={this.constructor.styles.td}>{
-			this.decideAndRender(guess)
-		}</td>);
+		return (
+				<td key={index} style={this.constructor.styles.td}>{
+					this.decideAndRender(guess)
+				}</td>
+		);
 	}
 
 	decideAndRender(guess) {
@@ -62,20 +68,24 @@ class JSONViewer extends Component {
 
 	aobToTable(aob) {
 		var keys = Object.keys(aob[0]);
-		return (<table>
-			{this.renderHeaderByKeys(keys)}
-			<tbody>
-			{
-				aob.map((row, j)=> {
-					return (<tr key={j}>{
-						keys.map((v, i)=> {
-							return this.renderTd(row[v], i);
+		return (
+				<table>
+					{this.renderHeaderByKeys(keys)}
+					<tbody>
+					{
+						aob.map((row, j)=> {
+							return (
+									<tr key={j}>{
+										keys.map((v, i)=> {
+											return this.renderTd(row[v], i);
+										})
+									}</tr>
+							);
 						})
-					}</tr>);
-				})
-			}
-			</tbody>
-		</table>);
+					}
+					</tbody>
+				</table>
+		);
 	}
 
 	checkIfArrayIsAOB(arr) {
@@ -91,14 +101,31 @@ class JSONViewer extends Component {
 	}
 
 	render() {
-		return (<div>
-			<pre style={{'display': 'block'}}>{JSON.stringify(this.props.json, null, '  ')}</pre>
-			{
-				this.decideAndRender(this.props.json)
-			}
-		</div>);
+		return (
+				<div>{
+					(() => {
+						if (this.props.showjson === true) {
+							return <pre style={{'display': 'block'}}>{JSON.stringify(this.props.json, null, '  ')}</pre>
+						}
+					})()
+				}
+					{
+						this.decideAndRender(this.props.json)
+					}
+				</div>
+		);
 	}
 }
+JSONViewer.propTypes = {
+	json: React.PropTypes.any.isRequired,
+	showjson: React.PropTypes.bool
+};
+
+
+JSONViewer.defaultProps = {
+	showjson: false
+};
+
 
 JSONViewer.styles = {
 	td: {

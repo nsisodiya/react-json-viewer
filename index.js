@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import ObjectInspector from 'react-object-inspector';
 
 class JSONViewer extends Component {
 	constructor(props, context) {
@@ -107,7 +108,7 @@ class JSONViewer extends Component {
 
 		return (
 				<div>{[
-					[<pre>{JSON.stringify(this.props.json, null, ' ')}</pre>][_if_(this.props.showjson)],
+					[<ObjectInspector data={ this.props.json }/>][_if_(this.props.showjson)],
 					this.decideAndRender(this.props.json)
 				]}
 				</div>

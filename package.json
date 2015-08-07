@@ -1,6 +1,6 @@
 {
 	"name": "react-json-viewer",
-	"version": "1.0.3",
+	"version": "1.0.4",
 	"description": "react component for json viewing in tabular format",
 	"main": "index.js",
 	"scripts": {
@@ -29,5 +29,8 @@
 		"babel-eslint": "^4.0.5",
 		"eslint": "^0.24.1",
 		"eslint-plugin-react": "^3.0.0"
+	}
+	"dependencies": {
+		"react-object-inspector": "^0.1.4"
 	}
 }

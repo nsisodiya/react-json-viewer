@@ -1,5 +1,5 @@
-import React, {Component} from 'react';
-import ObjectInspector from 'react-object-inspector';
+import React, {Component} from "react";
+import ObjectInspector from "react-object-inspector";
 
 class JSONViewer extends Component {
 	constructor(props, context) {
@@ -24,9 +24,9 @@ class JSONViewer extends Component {
 
 	objToTable(obj) {
 		if (Array.isArray(obj) === true && obj.length === 0) {
-			return '[ ]';
-		} else if (JSON.stringify(obj) === '{}') {
-			return '{ }';
+			return "[ ]";
+		} else if (JSON.stringify(obj) === "{}") {
+			return "{ }";
 		} else {
 			return (
 					<table>
@@ -59,10 +59,10 @@ class JSONViewer extends Component {
 				return this.objToTable(guess);
 			}
 		} else {
-			if (typeof guess === 'object') {
+			if (typeof guess === "object") {
 				return this.objToTable(guess);
 			} else {
-				return guess + '';
+				return guess + "";
 			}
 		}
 	}
@@ -90,7 +90,7 @@ class JSONViewer extends Component {
 	}
 
 	checkIfArrayIsAOB(arr) {
-		if (Array.isArray(arr) === true && arr.length !== 0 && typeof arr[0] === 'object') {
+		if (Array.isArray(arr) === true && arr.length !== 0 && typeof arr[0] === "object") {
 			var keystr = JSON.stringify(Object.keys(arr[0]).sort());
 			var unmatched = arr.filter((v)=> {
 				return keystr !== JSON.stringify(Object.keys(v).sort());
@@ -102,13 +102,13 @@ class JSONViewer extends Component {
 	}
 
 	render() {
-		function _if_(x) {
+		function iff(x) {
 			return ((x === true) + 1) % 2;
 		}
 
 		return (
 				<div>{[
-					[<ObjectInspector data={ this.props.json }/>][_if_(this.props.showjson)],
+					[<ObjectInspector data={ this.props.json }/>][iff(this.props.showjson)],
 					this.decideAndRender(this.props.json)
 				]}
 				</div>
@@ -128,17 +128,17 @@ JSONViewer.defaultProps = {
 
 JSONViewer.styles = {
 	td: {
-		border: '1px solid #cccccc',
-		textAlign: 'left',
+		border: "1px solid #cccccc",
+		textAlign: "left",
 		margin: 0,
-		padding: '6px 13px'
+		padding: "6px 13px"
 	},
 	th: {
-		border: '1px solid #cccccc',
-		textAlign: 'left',
+		border: "1px solid #cccccc",
+		textAlign: "left",
 		margin: 0,
-		padding: '6px 13px',
-		fontWeight: 'bold'
+		padding: "6px 13px",
+		fontWeight: "bold"
 	}
 };
 

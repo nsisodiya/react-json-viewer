@@ -59,7 +59,7 @@ class JSONViewer extends Component {
 				return this.objToTable(guess);
 			}
 		} else {
-			if (typeof guess === "object") {
+			if (typeof guess === "object" && guess !== null) {
 				return this.objToTable(guess);
 			} else {
 				return guess + "";

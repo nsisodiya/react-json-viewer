@@ -26,11 +26,14 @@
 	},
 	"homepage": "https://github.com/nsisodiya/react-json-viewer#readme",
 	"devDependencies": {
+		"babel-core": "^6.1.2",
 		"babel-eslint": "^4.0.5",
+		"babel-loader": "^6.0.1",
+		"babel-preset-es2015": "^6.1.2",
+		"babel-preset-react": "^6.1.2",
 		"eslint": "^0.24.1",
-		"eslint-plugin-react": "^3.2.0"
+		"eslint-plugin-react": "^3.2.0",
+		"webpack": "^1.12.3"
 	},
-	"dependencies": {
-		"react-object-inspector": "^0.1.4"
-	}
+	"dependencies": {}
 }

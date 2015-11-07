@@ -1,5 +1,5 @@
 import React, {Component} from "react";
-import ObjectInspector from "react-object-inspector";
+import ValueViewer from './ValueViewer';
 
 class JSONViewer extends Component {
 	constructor(props, context) {
@@ -13,7 +13,7 @@ class JSONViewer extends Component {
 					keys.map((key, i) => {
 						return (
 								<th key={i} style={this.constructor.styles.td}>
-									{key}
+									<span style={{color:"rgb(111, 11, 11)"}}>{key}</span>
 								</th>
 						);
 					})
@@ -62,7 +62,7 @@ class JSONViewer extends Component {
 			if (typeof guess === "object" && guess !== null) {
 				return this.objToTable(guess);
 			} else {
-				return guess + "";
+				return <ValueViewer value={guess}></ValueViewer>;
 			}
 		}
 	}
@@ -102,15 +102,10 @@ class JSONViewer extends Component {
 	}
 
 	render() {
-		function iff(x) {
-			return ((x === true) + 1) % 2;
-		}
-
 		return (
-				<div>{[
-					[<ObjectInspector data={ this.props.json }/>][iff(this.props.showjson)],
+				<div>{
 					this.decideAndRender(this.props.json)
-				]}
+				}
 				</div>
 		);
 	}

@@ -1,8 +1,15 @@
 module.exports = {
-	entry: "./src/Example.js",
+	entry: {
+		example: "./src/Example.js",
+		ReactJsonViewer: "./src/JSONViewer.js"
+	},
 	output: {
 		path: "dist",
-		filename: "bundle.js"
+		filename: "[name].js"
+	},
+	externals: {
+		"react": "React",
+		"react-dom": "ReactDOM"
 	},
 	module: {
 		loaders: [

@@ -136,5 +136,6 @@ JSONViewer.styles = {
 		fontWeight: "bold"
 	}
 };
-
+//TODO - FIX IT
+window.ReactJSONViewer = JSONViewer;
 export default JSONViewer;

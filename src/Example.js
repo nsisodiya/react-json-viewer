@@ -4,7 +4,6 @@
 
 import React , {Component} from 'react';
 import ReactDOM  from 'react-dom';
-import JSONViewer from './JSONViewer';
 
 class Example extends Component {
 	constructor() {
@@ -132,6 +131,9 @@ class Example extends Component {
 	render() {
 
 		return <div>
+			<h1>React JSON Viewer</h1>
+			<a href="https://github.com/nsisodiya/react-json-viewer">https://github.com/nsisodiya/react-json-viewer</a>
+			<h2>Try yourself</h2>
 			<div style={{margin:10}}>
 				<button data-json-id="0" style={{padding:5,marginLeft:10}} onClick={this.btnClick.bind(this)}>Array</button>
 				<button data-json-id="1" style={{padding:5,marginLeft:10}} onClick={this.btnClick.bind(this)}>Object</button>
@@ -147,9 +149,9 @@ class Example extends Component {
         fontFamily: "monospace"
 			}} ref="textarea" onKeyUp={this.keyup.bind(this)} placeholder="Copy paste JSON here" name="" id=""
 					cols="80" rows="10"></textarea>
-			<JSONViewer showjson json={this.state.userJson}></JSONViewer>
+			<ReactJSONViewer showjson json={this.state.userJson}></ReactJSONViewer>
 		</div>;
 	}
 }
 
-ReactDOM.render(<Example/>, document.getElementById("content"));
+ReactDOM.render(<Example/>, document.getElementById("root"));

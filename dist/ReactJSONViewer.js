@@ -1,14 +1,14 @@
 (function webpackUniversalModuleDefinition(root, factory) {
-	if (typeof exports === 'object' && typeof module === 'object')
+	if(typeof exports === 'object' && typeof module === 'object')
 		module.exports = factory(require("React"));
-	else if (typeof define === 'function' && define.amd)
+	else if(typeof define === 'function' && define.amd)
 		define(["React"], factory);
-	else if (typeof exports === 'object')
+	else if(typeof exports === 'object')
 		exports["ReactJSONViewer"] = factory(require("React"));
 	else
 		root["ReactJSONViewer"] = factory(root["React"]);
-})(this, function (__WEBPACK_EXTERNAL_MODULE_1__) {
-	return /******/ (function (modules) { // webpackBootstrap
+})(this, function(__WEBPACK_EXTERNAL_MODULE_1__) {
+return /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
 
@@ -62,7 +62,7 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-			var _ValueViewer = __webpack_require__(3);
+	var _ValueViewer = __webpack_require__(3);
 
 	var _ValueViewer2 = _interopRequireDefault(_ValueViewer);
 
@@ -220,7 +220,7 @@
 		json: _react2.default.PropTypes.any.isRequired
 	};
 
-			JSONViewer.defaultProps = {};
+	JSONViewer.defaultProps = {};
 
 	JSONViewer.styles = {
 		td: {
@@ -237,18 +237,18 @@
 			fontWeight: "bold"
 		}
 	};
-			//export default JSONViewer;
-			module.exports = JSONViewer;
+	//export default JSONViewer;
+	module.exports = JSONViewer;
 
 /***/ },
 /* 1 */
 /***/ function(module, exports) {
 
-			module.exports = __WEBPACK_EXTERNAL_MODULE_1__;
+	module.exports = __WEBPACK_EXTERNAL_MODULE_1__;
 
 /***/ },
-		/* 2 */,
-		/* 3 */
+/* 2 */,
+/* 3 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -343,6 +343,6 @@
 	exports.default = ValueViewer;
 
 /***/ }
-		/******/])
+/******/ ])
 });
 ;

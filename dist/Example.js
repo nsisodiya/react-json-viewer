@@ -1,14 +1,14 @@
 (function webpackUniversalModuleDefinition(root, factory) {
-	if (typeof exports === 'object' && typeof module === 'object')
+	if(typeof exports === 'object' && typeof module === 'object')
 		module.exports = factory(require("React"), require("ReactDOM"));
-	else if (typeof define === 'function' && define.amd)
+	else if(typeof define === 'function' && define.amd)
 		define(["React", "ReactDOM"], factory);
-	else if (typeof exports === 'object')
+	else if(typeof exports === 'object')
 		exports["Example"] = factory(require("React"), require("ReactDOM"));
 	else
 		root["Example"] = factory(root["React"], root["ReactDOM"]);
-})(this, function (__WEBPACK_EXTERNAL_MODULE_1__, __WEBPACK_EXTERNAL_MODULE_2__) {
-	return /******/ (function (modules) { // webpackBootstrap
+})(this, function(__WEBPACK_EXTERNAL_MODULE_1__, __WEBPACK_EXTERNAL_MODULE_2__) {
+return /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
 
@@ -62,7 +62,7 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-			var _reactDom = __webpack_require__(2);
+	var _reactDom = __webpack_require__(2);
 
 	var _reactDom2 = _interopRequireDefault(_reactDom);
 
@@ -256,7 +256,7 @@
 							fontFamily: "monospace"
 						}, ref: 'textarea', onKeyUp: this.keyup.bind(this), placeholder: 'Copy paste JSON here', name: '', id: '',
 						cols: '80', rows: '10' }),
-						_react2.default.createElement(ReactJSONViewer, {json: this.state.userJson})
+					_react2.default.createElement(ReactJSONViewer, { json: this.state.userJson })
 				);
 			}
 		}]);
@@ -264,23 +264,23 @@
 		return Example;
 	})(_react.Component);
 
-			//export default Example;
+	//export default Example;
 
-			module.exports = Example;
+	module.exports = Example;
 
 /***/ },
 /* 1 */
 /***/ function(module, exports) {
 
-			module.exports = __WEBPACK_EXTERNAL_MODULE_1__;
+	module.exports = __WEBPACK_EXTERNAL_MODULE_1__;
 
 /***/ },
-		/* 2 */
+/* 2 */
 /***/ function(module, exports) {
 
-			module.exports = __WEBPACK_EXTERNAL_MODULE_2__;
+	module.exports = __WEBPACK_EXTERNAL_MODULE_2__;
 
 /***/ }
-		/******/])
+/******/ ])
 });
 ;

@@ -2,7 +2,15 @@
 React Component for View JSON in beautiful tabular format. See images below.
 Note: Images are little old. From version 1.0.7, we show colors too.
 
-[![npm version](https://badge.fury.io/js/react-json-viewer.svg)](https://badge.fury.io/js/react-json-viewer)
+
+[![NPM version][npm-image]][npm-url]
+[![npm download][download-image]][download-url]
+
+[npm-image]: http://img.shields.io/npm/v/react-json-viewer.svg?style=flat-square
+[npm-url]: https://npmjs.org/package/react-json-viewer
+[download-image]: https://img.shields.io/npm/dm/react-json-viewer.svg?style=flat-square
+[download-url]: https://npmjs.org/package/react-json-viewer
+
 
 # Demo
 

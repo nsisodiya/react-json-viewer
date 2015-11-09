@@ -29,5 +29,4 @@ var todos = [{
 
 
 <JSONViewer json={todos}></JSONViewer>
-<JSONViewer showjson json={todos}></JSONViewer>
 ```

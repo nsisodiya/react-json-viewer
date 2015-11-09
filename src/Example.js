@@ -149,9 +149,10 @@ class Example extends Component {
         fontFamily: "monospace"
 			}} ref="textarea" onKeyUp={this.keyup.bind(this)} placeholder="Copy paste JSON here" name="" id=""
 					cols="80" rows="10"></textarea>
-			<ReactJSONViewer showjson json={this.state.userJson}></ReactJSONViewer>
+			<ReactJSONViewer json={this.state.userJson}></ReactJSONViewer>
 		</div>;
 	}
 }
 
-ReactDOM.render(<Example/>, document.getElementById("root"));
+//export default Example;
+module.exports = Example;

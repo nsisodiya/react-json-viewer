@@ -1,11 +1,13 @@
 module.exports = {
 	entry: {
-		example: "./src/Example.js",
-		ReactJsonViewer: "./src/JSONViewer.js"
+		Example: "./src/Example.js",
+		ReactJSONViewer: "./src/JSONViewer.js"
 	},
 	output: {
 		path: "dist",
-		filename: "[name].js"
+		filename: "[name].js",
+		libraryTarget: 'umd',
+		library: "[name]"
 	},
 	externals: {
 		"react": "React",

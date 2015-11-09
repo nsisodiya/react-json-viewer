@@ -7,9 +7,12 @@
 	<script src="https://fb.me/react-dom-0.14.0.min.js"></script>
 </head>
 <body>
-	<div id="root"></div>
-	<script src="dist/ReactJsonViewer.js"></script>
-	<script src="dist/example.js"></script>
-	<script src="http://localhost:35729/livereload.js"></script>
+<div id="root"></div>
+<script src="dist/ReactJsonViewer.js"></script>
+<script src="dist/Example.js"></script>
+<script>
+	ReactDOM.render(React.createElement(window.Example, null), document.getElementById("root"));
+</script>
+<script src="http://localhost:35729/livereload.js"></script>
 </body>
 </html>

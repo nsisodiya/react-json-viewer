@@ -111,14 +111,11 @@ class JSONViewer extends Component {
 	}
 }
 JSONViewer.propTypes = {
-	json: React.PropTypes.any.isRequired,
-	showjson: React.PropTypes.bool
+	json: React.PropTypes.any.isRequired
 };
 
 
-JSONViewer.defaultProps = {
-	showjson: false
-};
+JSONViewer.defaultProps = {};
 
 
 JSONViewer.styles = {
@@ -136,6 +133,5 @@ JSONViewer.styles = {
 		fontWeight: "bold"
 	}
 };
-//TODO - FIX IT
-window.ReactJSONViewer = JSONViewer;
-export default JSONViewer;
+//export default JSONViewer;
+module.exports = JSONViewer;

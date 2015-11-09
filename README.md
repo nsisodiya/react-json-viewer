@@ -8,6 +8,10 @@ Note: Images are little old. From version 1.0.7, we show colors too.
 
 [http://nsisodiya.github.io/react-json-viewer](http://nsisodiya.github.io/react-json-viewer/)
 
+# JSFiddle Example
+
+[http://jsfiddle.net/nsisodiya/61fwqcg5/](http://jsfiddle.net/nsisodiya/61fwqcg5/)
+
 # What
 
 ![alt pic](https://raw.githubusercontent.com/nsisodiya/react-json-viewer/master/pic1.png)
@@ -32,7 +36,3 @@ var todos = [{
 
 <JSONViewer json={todos}></JSONViewer>
 ```
-
-# JSFiddle Example
-
-[http://jsfiddle.net/nsisodiya/61fwqcg5/](http://jsfiddle.net/nsisodiya/61fwqcg5/)

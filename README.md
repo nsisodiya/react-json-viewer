@@ -1,5 +1,6 @@
 # react-json-viewer
 React Component for View JSON in beautiful tabular format. See images below.
+Note: Images are little old. From version 1.0.7, we show colors too.
 
 # Demo
 

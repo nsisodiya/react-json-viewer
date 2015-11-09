@@ -1,10 +1,10 @@
 (function webpackUniversalModuleDefinition(root, factory) {
 	if(typeof exports === 'object' && typeof module === 'object')
-		module.exports = factory(require("React"));
+		module.exports = factory(require("react"));
 	else if(typeof define === 'function' && define.amd)
 		define(["React"], factory);
 	else if(typeof exports === 'object')
-		exports["ReactJSONViewer"] = factory(require("React"));
+		exports["ReactJSONViewer"] = factory(require("react"));
 	else
 		root["ReactJSONViewer"] = factory(root["React"]);
 })(this, function(__WEBPACK_EXTERNAL_MODULE_1__) {

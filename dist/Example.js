@@ -1,10 +1,10 @@
 (function webpackUniversalModuleDefinition(root, factory) {
 	if(typeof exports === 'object' && typeof module === 'object')
-		module.exports = factory(require("React"), require("ReactDOM"));
+		module.exports = factory(require("react"), require("react-dom"));
 	else if(typeof define === 'function' && define.amd)
 		define(["React", "ReactDOM"], factory);
 	else if(typeof exports === 'object')
-		exports["Example"] = factory(require("React"), require("ReactDOM"));
+		exports["Example"] = factory(require("react"), require("react-dom"));
 	else
 		root["Example"] = factory(root["React"], root["ReactDOM"]);
 })(this, function(__WEBPACK_EXTERNAL_MODULE_1__, __WEBPACK_EXTERNAL_MODULE_2__) {

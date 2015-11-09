@@ -30,3 +30,7 @@ var todos = [{
 
 <JSONViewer json={todos}></JSONViewer>
 ```
+
+#JSFiddle Example
+
+[http://jsfiddle.net/nsisodiya/61fwqcg5/](http://jsfiddle.net/nsisodiya/61fwqcg5/)

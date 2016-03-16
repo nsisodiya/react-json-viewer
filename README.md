@@ -44,3 +44,9 @@ var todos = [{
 
 <JSONViewer json={todos}></JSONViewer>
 ```
+
+# Develop
+```
+npm install
+npm run build
+```

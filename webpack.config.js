@@ -6,30 +6,44 @@ module.exports = {
 	output: {
 		path: "dist",
 		filename: "[name].js",
-		libraryTarget: 'umd',
+		libraryTarget: "umd",
 		library: "[name]"
+	},
+	eslint: {
+		failOnWarning: false,
+		failOnError: true,
+		emitError: true,
+		configFile: ".eslintrc",
+		formatter: require("eslint/lib/formatters/stylish")
 	},
 	externals: {
 		"react": {
-			commonjs: 'react',
-			commonjs2: 'react',
-			amd: 'React',
-			root: 'React'
+			commonjs: "react",
+			commonjs2: "react",
+			amd: "React",
+			root: "React"
 		},
 		"react-dom": {
-			commonjs: 'react-dom',
-			commonjs2: 'react-dom',
-			amd: 'ReactDOM',
-			root: 'ReactDOM'
+			commonjs: "react-dom",
+			commonjs2: "react-dom",
+			amd: "ReactDOM",
+			root: "ReactDOM"
 		}
 	},
 	module: {
+		preLoaders: [
+			{
+				test: /\.jsx?$/,
+				loader: "eslint",
+				exclude: /node_modules/
+			}
+		],
 		loaders: [
 			{
 				test: /.jsx?$/,
 				loader: "babel",
 				query: {
-					presets: ['es2015', 'react']
+					presets: ["es2015", "react"]
 				}
 			}
 		]

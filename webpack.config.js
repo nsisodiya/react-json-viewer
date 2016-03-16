@@ -10,6 +10,7 @@ module.exports = {
 		library: "[name]"
 	},
 	eslint: {
+		//fix: true,
 		failOnWarning: false,
 		failOnError: true,
 		emitError: true,

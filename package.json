@@ -3,6 +3,9 @@
 	"version": "1.0.9",
 	"description": "react component for json viewing in tabular format",
 	"main": "dist/ReactJSONViewer.js",
+	"files": [
+		"dist"
+	],
 	"scripts": {
 		"test": "echo \"Error: no test specified\" && exit 1",
 		"watch": "webpack --watch &",

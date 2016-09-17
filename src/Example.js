@@ -73,45 +73,25 @@ class Example extends Component {
             task: "Buy  Mobile",
             done: false
           }
-        ]
-      },
-      {
-        "problems": [{
-          "Diabetes": [{
-            "medications": [{
-              "medicationsClasses": [{
-                "className": [{
-                  "associatedDrug": [{
-                    "name": "asprin",
-                    "dose": "",
-                    "strength": "500  mg"
-                  }],
-                  "associatedDrug#2": [{
-                    "name": "somethingElse",
-                    "dose": "",
-                    "strength": "500  mg"
-                  }]
-                }],
-                "className2": [{
-                  "associatedDrug": [{
-                    "name": "asprin",
-                    "dose": "",
-                    "strength": "500  mg"
-                  }],
-                  "associatedDrug#2": [{
-                    "name": "somethingElse",
-                    "dose": "",
-                    "strength": "500  mg"
-                  }]
-                }]
-              }]
-            }],
-            "labs": [{
-              "missing_field": "missing_value"
-            }]
-          }],
-          "Asthma": [{}]
-        }]
+        ],
+        dateWiseData: {
+          "2016-02-14": {
+            availableRooms: 10,
+            soldRooms: 20
+          },
+          "2016-02-15": {
+            availableRooms: 15,
+            soldRooms: 15
+          },
+          "2016-02-16": {
+            availableRooms: 5,
+            soldRooms: 25
+          },
+          "2016-02-17": {
+            availableRooms: 0,
+            soldRooms: 30
+          }
+        }
       }
     ];
   }
@@ -169,10 +149,6 @@ class Example extends Component {
         <button data-json-id="4" style={{ padding: 5, marginLeft: 10}} onClick={this.btnClick.bind(this)}>Nested
           Object
           1
-        </button>
-        <button data-json-id="5" style={{ padding: 5, marginLeft: 10}} onClick={this.btnClick.bind(this)}>Nested
-          Object
-          2
         </button>
       </div>
       <textarea style={{

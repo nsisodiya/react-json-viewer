@@ -19,18 +19,29 @@ var JSONViewer = class JSONViewer extends Component {
     super(props, context);
   }
 
-  renderHeaderByKeys(keys) {
+  renderHeaderByKeys(keys, addExtra) {
     return (
       <thead>
-      <tr>{
-        keys.map((key, i) => {
-          return (
-            <th key={i} style={this.constructor.styles.td}>
-              <span style={{color: "rgb(111, 11, 11)"}}>{key}</span>
-            </th>
-          );
-        })
-      }</tr>
+      <tr>
+        {
+          (()=> {
+            if (addExtra === "addExtra") {
+              return <th style={this.constructor.styles.td}>
+                <span style={{color: "rgb(111, 11, 11)"}}></span>
+              </th>;
+            }
+          })()
+        }
+        {
+          keys.map((key, i) => {
+            return (
+              <th key={i} style={this.constructor.styles.td}>
+                <span style={{color: "rgb(111, 11, 11)"}}>{key}</span>
+              </th>
+            );
+          })
+        }
+      </tr>
       </thead>
     );
   }
@@ -95,7 +106,7 @@ var JSONViewer = class JSONViewer extends Component {
     } else {
       if (typeof guess === "object" && guess !== null) {
         if (this.checkIfObjectIsOOB(guess)) {
-          return this.aobToTable(guess);
+          return this.oobToTable(guess);
         } else {
           return this.objToTable(guess);
         }
@@ -106,12 +117,7 @@ var JSONViewer = class JSONViewer extends Component {
   }
 
   aobToTable(aob) {
-    var keys;
-    if (typeof aob[0] === "undefined") {
-      keys = Object.keys(aob[Object.keys(aob)[0]]);
-    } else {
-      keys = Object.keys(aob[0]);
-    }
+    var keys = Object.keys(aob[0]);
     return (
       <table>
         {this.renderHeaderByKeys(keys)}
@@ -125,6 +131,32 @@ var JSONViewer = class JSONViewer extends Component {
                   return this.renderTd(row[v], i);
                 })
               }</tr>
+            );
+          })
+        }
+        </tbody>
+      </table>
+    );
+  }
+
+  oobToTable(aob) {
+    var keys = Object.keys(aob[Object.keys(aob)[0]]);
+    return (
+      <table>
+        {this.renderHeaderByKeys(keys, "addExtra")}
+        <tbody>
+        {
+          Object.keys(aob).map((j)=> {
+            var row = aob[j];
+            return (
+              <tr key={j}>
+                <td style={this.constructor.styles.td}><ValueViewer value={j}/></td>
+                {
+                  keys.map((v, i)=> {
+                    return this.renderTd(row[v], i);
+                  })
+                }
+              </tr>
             );
           })
         }

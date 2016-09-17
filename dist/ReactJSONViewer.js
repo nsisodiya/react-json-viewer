@@ -98,7 +98,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	  _createClass(JSONViewer, [{
 	    key: "renderHeaderByKeys",
-	    value: function renderHeaderByKeys(keys) {
+	    value: function renderHeaderByKeys(keys, addExtra) {
 	      var _this2 = this;
 
 	      return _react2.default.createElement(
@@ -107,6 +107,15 @@ return /******/ (function(modules) { // webpackBootstrap
 	        _react2.default.createElement(
 	          "tr",
 	          null,
+	          function () {
+	            if (addExtra === "addExtra") {
+	              return _react2.default.createElement(
+	                "th",
+	                { style: _this2.constructor.styles.td },
+	                _react2.default.createElement("span", { style: { color: "rgb(111, 11, 11)" } })
+	              );
+	            }
+	          }(),
 	          keys.map(function (key, i) {
 	            return _react2.default.createElement(
 	              "th",
@@ -200,7 +209,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	      } else {
 	        if ((typeof guess === "undefined" ? "undefined" : _typeof(guess)) === "object" && guess !== null) {
 	          if (this.checkIfObjectIsOOB(guess)) {
-	            return this.aobToTable(guess);
+	            return this.oobToTable(guess);
 	          } else {
 	            return this.objToTable(guess);
 	          }
@@ -214,12 +223,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    value: function aobToTable(aob) {
 	      var _this5 = this;
 
-	      var keys;
-	      if (typeof aob[0] === "undefined") {
-	        keys = Object.keys(aob[Object.keys(aob)[0]]);
-	      } else {
-	        keys = Object.keys(aob[0]);
-	      }
+	      var keys = Object.keys(aob[0]);
 	      return _react2.default.createElement(
 	        "table",
 	        null,
@@ -234,6 +238,37 @@ return /******/ (function(modules) { // webpackBootstrap
 	              { key: j },
 	              keys.map(function (v, i) {
 	                return _this5.renderTd(row[v], i);
+	              })
+	            );
+	          })
+	        )
+	      );
+	    }
+	  }, {
+	    key: "oobToTable",
+	    value: function oobToTable(aob) {
+	      var _this6 = this;
+
+	      var keys = Object.keys(aob[Object.keys(aob)[0]]);
+	      return _react2.default.createElement(
+	        "table",
+	        null,
+	        this.renderHeaderByKeys(keys, "addExtra"),
+	        _react2.default.createElement(
+	          "tbody",
+	          null,
+	          Object.keys(aob).map(function (j) {
+	            var row = aob[j];
+	            return _react2.default.createElement(
+	              "tr",
+	              { key: j },
+	              _react2.default.createElement(
+	                "td",
+	                { style: _this6.constructor.styles.td },
+	                _react2.default.createElement(_ValueViewer2.default, { value: j })
+	              ),
+	              keys.map(function (v, i) {
+	                return _this6.renderTd(row[v], i);
 	              })
 	            );
 	          })

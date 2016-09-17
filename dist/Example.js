@@ -106,6 +106,25 @@ return /******/ (function(modules) { // webpackBootstrap
 	      task: "Buy  Mobile",
 	      done: false
 	    }], {
+	      dateWiseData: {
+	        "2016-02-14": {
+	          availableRooms: 10,
+	          soldRooms: 20
+	        },
+	        "2016-02-15": {
+	          availableRooms: 15,
+	          soldRooms: 15
+	        },
+	        "2016-02-16": {
+	          availableRooms: 5,
+	          soldRooms: 25
+	        },
+	        "2016-02-17": {
+	          availableRooms: 0,
+	          soldRooms: 30
+	        }
+	      }
+	    }, {
 	      name: "Narendra",
 	      age: 32,
 	      place: {
@@ -247,11 +266,16 @@ return /******/ (function(modules) { // webpackBootstrap
 	          _react2.default.createElement(
 	            "button",
 	            { "data-json-id": "3", style: { padding: 5, marginLeft: 10 }, onClick: this.btnClick.bind(this) },
-	            "Nested Object 1"
+	            "Object of Object"
 	          ),
 	          _react2.default.createElement(
 	            "button",
 	            { "data-json-id": "4", style: { padding: 5, marginLeft: 10 }, onClick: this.btnClick.bind(this) },
+	            "Nested Object 1"
+	          ),
+	          _react2.default.createElement(
+	            "button",
+	            { "data-json-id": "5", style: { padding: 5, marginLeft: 10 }, onClick: this.btnClick.bind(this) },
 	            "Nested Object 2"
 	          )
 	        ),

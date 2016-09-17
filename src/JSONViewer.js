@@ -4,6 +4,16 @@ import React, {Component} from "react";
 import ValueViewer from "./ValueViewer";
 
 var ZERO = 0;
+
+var allValuesSameInArray = function (arr) {
+  for(var i = 1; i < arr.length; i++) {
+    if (arr[i] !== arr[0]) {
+      return false;
+    }
+  }
+  return true;
+};
+
 var JSONViewer = class JSONViewer extends Component {
   constructor(props, context) {
     super(props, context);
@@ -11,17 +21,17 @@ var JSONViewer = class JSONViewer extends Component {
 
   renderHeaderByKeys(keys) {
     return (
-        <thead>
-        <tr>{
-          keys.map((key, i) => {
-            return (
-                <th key={i} style={this.constructor.styles.td}>
-                  <span style={{color: "rgb(111, 11, 11)"}}>{key}</span>
-                </th>
-            );
-          })
-        }</tr>
-        </thead>
+      <thead>
+      <tr>{
+        keys.map((key, i) => {
+          return (
+            <th key={i} style={this.constructor.styles.td}>
+              <span style={{color: "rgb(111, 11, 11)"}}>{key}</span>
+            </th>
+          );
+        })
+      }</tr>
+      </thead>
     );
   }
 
@@ -32,25 +42,46 @@ var JSONViewer = class JSONViewer extends Component {
       return "{ }";
     } else {
       return (
-          <table>
-            {this.renderHeaderByKeys(Object.keys(obj))}
-            <tbody>
-            <tr>{
-              Object.keys(obj).map((key, i) => {
-                return this.renderTd(obj[key], i);
-              })
-            }</tr>
-            </tbody>
-          </table>
+        <table>
+          {this.renderHeaderByKeys(Object.keys(obj))}
+          <tbody>
+          <tr>{
+            Object.keys(obj).map((key, i) => {
+              return this.renderTd(obj[key], i);
+            })
+          }</tr>
+          </tbody>
+        </table>
+      );
+    }
+  }
+
+  arrayToTable(obj) {
+    if (Array.isArray(obj) === true && obj.length === ZERO) {
+      return "[ ]";
+    } else {
+      return (
+        <table>
+          <tbody>
+          {
+            Object.keys(obj).map((key, i) => {
+              return <tr>
+                <td style={this.constructor.styles.td}>{`${i}`}</td>
+                {this.renderTd(obj[key], i)}
+              </tr>;
+            })
+          }
+          </tbody>
+        </table>
       );
     }
   }
 
   renderTd(guess, index) {
     return (
-        <td key={index} style={this.constructor.styles.td}>{
-          this.decideAndRender(guess)
-        }</td>
+      <td key={index} style={this.constructor.styles.td}>{
+        this.decideAndRender(guess)
+      }</td>
     );
   }
 
@@ -59,11 +90,15 @@ var JSONViewer = class JSONViewer extends Component {
       if (this.checkIfArrayIsAOB(guess)) {
         return this.aobToTable(guess);
       } else {
-        return this.objToTable(guess);
+        return this.arrayToTable(guess);
       }
     } else {
       if (typeof guess === "object" && guess !== null) {
-        return this.objToTable(guess);
+        if (this.checkIfObjectIsOOB(guess)) {
+          return this.aobToTable(guess);
+        } else {
+          return this.objToTable(guess);
+        }
       } else {
         return <ValueViewer value={guess}></ValueViewer>;
       }
@@ -71,24 +106,30 @@ var JSONViewer = class JSONViewer extends Component {
   }
 
   aobToTable(aob) {
-    var keys = Object.keys(aob[0]);
+    var keys;
+    if (typeof aob[0] === "undefined") {
+      keys = Object.keys(aob[Object.keys(aob)[0]]);
+    } else {
+      keys = Object.keys(aob[0]);
+    }
     return (
-        <table>
-          {this.renderHeaderByKeys(keys)}
-          <tbody>
-          {
-            aob.map((row, j)=> {
-              return (
-                  <tr key={j}>{
-                    keys.map((v, i)=> {
-                      return this.renderTd(row[v], i);
-                    })
-                  }</tr>
-              );
-            })
-          }
-          </tbody>
-        </table>
+      <table>
+        {this.renderHeaderByKeys(keys)}
+        <tbody>
+        {
+          Object.keys(aob).map((j)=> {
+            var row = aob[j];
+            return (
+              <tr key={j}>{
+                keys.map((v, i)=> {
+                  return this.renderTd(row[v], i);
+                })
+              }</tr>
+            );
+          })
+        }
+        </tbody>
+      </table>
     );
   }
 
@@ -104,12 +145,32 @@ var JSONViewer = class JSONViewer extends Component {
     }
   }
 
+  checkIfObjectIsOOB(obj) {
+    var One = 1;
+    var test = Object.keys(obj).map(function (i) {
+      if (obj[i] !== null && typeof obj[i] === "object") {
+        return Object.keys(obj[i]).sort().join(",");
+      } else {
+        return "";
+      }
+    }).filter(function (v) {
+      return v !== "";
+    }).filter(function (v, i, A) {
+      return A.length > One;
+    });
+    if (test.length > One) {
+      return allValuesSameInArray(test);
+    } else {
+      return false;
+    }
+  }
+
   render() {
     return (
-        <div>{
-          this.decideAndRender(this.props.json)
-        }
-        </div>
+      <div>{
+        this.decideAndRender(this.props.json)
+      }
+      </div>
     );
   }
 };

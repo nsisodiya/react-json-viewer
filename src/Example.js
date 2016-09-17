@@ -31,6 +31,26 @@ class Example extends Component {
         done: false
       }],
       {
+        dateWiseData: {
+          "2016-02-14": {
+            availableRooms: 10,
+            soldRooms: 20
+          },
+          "2016-02-15": {
+            availableRooms: 15,
+            soldRooms: 15
+          },
+          "2016-02-16": {
+            availableRooms: 5,
+            soldRooms: 25
+          },
+          "2016-02-17": {
+            availableRooms: 0,
+            soldRooms: 30
+          }
+        }
+      },
+      {
         name: "Narendra",
         age: 32,
         place: {
@@ -143,11 +163,14 @@ class Example extends Component {
         <button data-json-id="2" style={{ padding: 5, marginLeft: 10}} onClick={this.btnClick.bind(this)}>Array of
           Object
         </button>
-        <button data-json-id="3" style={{ padding: 5, marginLeft: 10}} onClick={this.btnClick.bind(this)}>Nested
+        <button data-json-id="3" style={{ padding: 5, marginLeft: 10}} onClick={this.btnClick.bind(this)}>Object of
+          Object
+        </button>
+        <button data-json-id="4" style={{ padding: 5, marginLeft: 10}} onClick={this.btnClick.bind(this)}>Nested
           Object
           1
         </button>
-        <button data-json-id="4" style={{ padding: 5, marginLeft: 10}} onClick={this.btnClick.bind(this)}>Nested
+        <button data-json-id="5" style={{ padding: 5, marginLeft: 10}} onClick={this.btnClick.bind(this)}>Nested
           Object
           2
         </button>
@@ -156,7 +179,7 @@ class Example extends Component {
         fontSize: 15,
         fontFamily: "monospace"
       }} ref="textarea" onKeyUp={this.keyup.bind(this)} placeholder="Copy  paste  JSON  here" name="" id=""
-          cols="80" rows="10"></textarea>
+        cols="80" rows="10"></textarea>
       <ReactJSONViewer json={this.state.userJson}></ReactJSONViewer>
     </div>;
   }

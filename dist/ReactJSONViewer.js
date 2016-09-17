@@ -77,6 +77,16 @@ return /******/ (function(modules) { // webpackBootstrap
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 	var ZERO = 0;
+
+	var allValuesSameInArray = function allValuesSameInArray(arr) {
+	  for (var i = 1; i < arr.length; i++) {
+	    if (arr[i] !== arr[0]) {
+	      return false;
+	    }
+	  }
+	  return true;
+	};
+
 	var JSONViewer = function (_Component) {
 	  _inherits(JSONViewer, _Component);
 
@@ -140,6 +150,36 @@ return /******/ (function(modules) { // webpackBootstrap
 	      }
 	    }
 	  }, {
+	    key: "arrayToTable",
+	    value: function arrayToTable(obj) {
+	      var _this4 = this;
+
+	      if (Array.isArray(obj) === true && obj.length === ZERO) {
+	        return "[ ]";
+	      } else {
+	        return _react2.default.createElement(
+	          "table",
+	          null,
+	          _react2.default.createElement(
+	            "tbody",
+	            null,
+	            Object.keys(obj).map(function (key, i) {
+	              return _react2.default.createElement(
+	                "tr",
+	                null,
+	                _react2.default.createElement(
+	                  "td",
+	                  { style: _this4.constructor.styles.td },
+	                  "" + i
+	                ),
+	                _this4.renderTd(obj[key], i)
+	              );
+	            })
+	          )
+	        );
+	      }
+	    }
+	  }, {
 	    key: "renderTd",
 	    value: function renderTd(guess, index) {
 	      return _react2.default.createElement(
@@ -155,11 +195,15 @@ return /******/ (function(modules) { // webpackBootstrap
 	        if (this.checkIfArrayIsAOB(guess)) {
 	          return this.aobToTable(guess);
 	        } else {
-	          return this.objToTable(guess);
+	          return this.arrayToTable(guess);
 	        }
 	      } else {
 	        if ((typeof guess === "undefined" ? "undefined" : _typeof(guess)) === "object" && guess !== null) {
-	          return this.objToTable(guess);
+	          if (this.checkIfObjectIsOOB(guess)) {
+	            return this.aobToTable(guess);
+	          } else {
+	            return this.objToTable(guess);
+	          }
 	        } else {
 	          return _react2.default.createElement(_ValueViewer2.default, { value: guess });
 	        }
@@ -168,9 +212,14 @@ return /******/ (function(modules) { // webpackBootstrap
 	  }, {
 	    key: "aobToTable",
 	    value: function aobToTable(aob) {
-	      var _this4 = this;
+	      var _this5 = this;
 
-	      var keys = Object.keys(aob[0]);
+	      var keys;
+	      if (typeof aob[0] === "undefined") {
+	        keys = Object.keys(aob[Object.keys(aob)[0]]);
+	      } else {
+	        keys = Object.keys(aob[0]);
+	      }
 	      return _react2.default.createElement(
 	        "table",
 	        null,
@@ -178,12 +227,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	        _react2.default.createElement(
 	          "tbody",
 	          null,
-	          aob.map(function (row, j) {
+	          Object.keys(aob).map(function (j) {
+	            var row = aob[j];
 	            return _react2.default.createElement(
 	              "tr",
 	              { key: j },
 	              keys.map(function (v, i) {
-	                return _this4.renderTd(row[v], i);
+	                return _this5.renderTd(row[v], i);
 	              })
 	            );
 	          })
@@ -199,6 +249,27 @@ return /******/ (function(modules) { // webpackBootstrap
 	          return keystr !== JSON.stringify(Object.keys(v).sort());
 	        });
 	        return unmatched.length === ZERO;
+	      } else {
+	        return false;
+	      }
+	    }
+	  }, {
+	    key: "checkIfObjectIsOOB",
+	    value: function checkIfObjectIsOOB(obj) {
+	      var One = 1;
+	      var test = Object.keys(obj).map(function (i) {
+	        if (obj[i] !== null && _typeof(obj[i]) === "object") {
+	          return Object.keys(obj[i]).sort().join(",");
+	        } else {
+	          return "";
+	        }
+	      }).filter(function (v) {
+	        return v !== "";
+	      }).filter(function (v, i, A) {
+	        return A.length > One;
+	      });
+	      if (test.length > One) {
+	        return allValuesSameInArray(test);
 	      } else {
 	        return false;
 	      }

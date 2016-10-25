@@ -185,8 +185,6 @@ var JSONViewer = class JSONViewer extends Component {
       } else {
         return "";
       }
-    }).filter(function (v) {
-      return v !== "";
     }).filter(function (v, i, A) {
       return A.length > One;
     });

@@ -185,10 +185,8 @@ var JSONViewer = class JSONViewer extends Component {
       } else {
         return "";
       }
-    }).filter(function (v, i, A) {
-      return A.length > One;
     });
-    if (test.length > One) {
+    if (test.length > One && test[0].length > One) {
       return allValuesSameInArray(test);
     } else {
       return false;

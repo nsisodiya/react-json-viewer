@@ -77,6 +77,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 	var ZERO = 0;
+	var ONE = 1;
 
 	var allValuesSameInArray = function allValuesSameInArray(arr) {
 	  for (var i = 1; i < arr.length; i++) {
@@ -278,12 +279,20 @@ return /******/ (function(modules) { // webpackBootstrap
 	  }, {
 	    key: "checkIfArrayIsAOB",
 	    value: function checkIfArrayIsAOB(arr) {
-	      if (Array.isArray(arr) === true && arr.length !== ZERO && _typeof(arr[0]) === "object") {
-	        var keystr = JSON.stringify(Object.keys(arr[0]).sort());
-	        var unmatched = arr.filter(function (v) {
-	          return keystr !== JSON.stringify(Object.keys(v).sort());
+	      if (Array.isArray(arr) === true && arr.length !== ZERO && _typeof(arr[0]) === "object" && arr.length > ONE) {
+	        var obj = arr;
+	        var test = Object.keys(obj).map(function (i) {
+	          if (obj[i] !== null && _typeof(obj[i]) === "object") {
+	            return Object.keys(obj[i]).sort().join(",");
+	          } else {
+	            return "";
+	          }
 	        });
-	        return unmatched.length === ZERO;
+	        if (test.length > ONE && test[0].length > ONE) {
+	          return allValuesSameInArray(test);
+	        } else {
+	          return false;
+	        }
 	      } else {
 	        return false;
 	      }
@@ -291,7 +300,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	  }, {
 	    key: "checkIfObjectIsOOB",
 	    value: function checkIfObjectIsOOB(obj) {
-	      var One = 1;
 	      var test = Object.keys(obj).map(function (i) {
 	        if (obj[i] !== null && _typeof(obj[i]) === "object") {
 	          return Object.keys(obj[i]).sort().join(",");
@@ -299,7 +307,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	          return "";
 	        }
 	      });
-	      if (test.length > One && test[0].length > One) {
+	      if (test.length > ONE && test[0].length > ONE) {
 	        return allValuesSameInArray(test);
 	      } else {
 	        return false;

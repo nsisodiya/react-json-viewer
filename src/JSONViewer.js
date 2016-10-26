@@ -4,6 +4,7 @@ import React, {Component} from "react";
 import ValueViewer from "./ValueViewer";
 
 var ZERO = 0;
+var ONE = 1;
 
 var allValuesSameInArray = function (arr) {
   for(var i = 1; i < arr.length; i++) {
@@ -166,19 +167,26 @@ var JSONViewer = class JSONViewer extends Component {
   }
 
   checkIfArrayIsAOB(arr) {
-    if (Array.isArray(arr) === true && arr.length !== ZERO && typeof arr[0] === "object") {
-      var keystr = JSON.stringify(Object.keys(arr[0]).sort());
-      var unmatched = arr.filter((v)=> {
-        return keystr !== JSON.stringify(Object.keys(v).sort());
+    if (Array.isArray(arr) === true && arr.length !== ZERO && typeof arr[0] === "object" && arr.length > ONE) {
+      var obj = arr;
+      var test = Object.keys(obj).map(function (i) {
+        if (obj[i] !== null && typeof obj[i] === "object") {
+          return Object.keys(obj[i]).sort().join(",");
+        } else {
+          return "";
+        }
       });
-      return unmatched.length === ZERO;
+      if (test.length > ONE && test[0].length > ONE) {
+        return allValuesSameInArray(test);
+      } else {
+        return false;
+      }
     } else {
       return false;
     }
   }
 
   checkIfObjectIsOOB(obj) {
-    var One = 1;
     var test = Object.keys(obj).map(function (i) {
       if (obj[i] !== null && typeof obj[i] === "object") {
         return Object.keys(obj[i]).sort().join(",");
@@ -186,7 +194,7 @@ var JSONViewer = class JSONViewer extends Component {
         return "";
       }
     });
-    if (test.length > One && test[0].length > One) {
+    if (test.length > ONE && test[0].length > ONE) {
       return allValuesSameInArray(test);
     } else {
       return false;

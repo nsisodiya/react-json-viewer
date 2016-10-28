@@ -1,6 +1,6 @@
 {
   "name": "react-json-viewer",
-  "version": "1.4.0",
+  "version": "1.5.0",
   "description": "react component for json viewing in tabular format",
   "main": "dist/ReactJSONViewer.js",
   "files": [

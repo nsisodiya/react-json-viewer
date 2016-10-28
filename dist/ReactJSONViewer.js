@@ -198,7 +198,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	                { style: _this5.constructor.styles.td },
 	                _react2.default.createElement(_ValueViewer2.default, { value: j })
 	              ),
-	              (0, _util.loopObject)((0, _util.getFirstEle)(aob)).map(function (val, key) {
+	              (0, _util.loopObject)((0, _util.getFirstEle)(aob), function (val, key) {
 	                return _this5.renderTd(row[key], key);
 	              })
 	            );

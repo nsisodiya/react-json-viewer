@@ -94,7 +94,7 @@ var JSONViewer = class JSONViewer extends Component {
               <tr key={j}>
                 <td style={this.constructor.styles.td}><ValueViewer value={j}/></td>
                 {
-                  loopObject(getFirstEle(aob)).map((val, key)=> {
+                  loopObject(getFirstEle(aob), (val, key)=> {
                     return this.renderTd(row[key], key);
                   })
                 }

@@ -56,8 +56,6 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	"use strict";
 
-	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj; };
-
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 	var _react = __webpack_require__(1);
@@ -68,6 +66,8 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _ValueViewer2 = _interopRequireDefault(_ValueViewer);
 
+	var _util = __webpack_require__(4);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -77,16 +77,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 	var ZERO = 0;
-	var ONE = 1;
-
-	var allValuesSameInArray = function allValuesSameInArray(arr) {
-	  for (var i = 1; i < arr.length; i++) {
-	    if (arr[i] !== arr[0]) {
-	      return false;
-	    }
-	  }
-	  return true;
-	};
 
 	var JSONViewer = function (_Component) {
 	  _inherits(JSONViewer, _Component);
@@ -136,9 +126,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    value: function objToTable(obj) {
 	      var _this3 = this;
 
-	      if (Array.isArray(obj) === true && obj.length === ZERO) {
-	        return "[ ]";
-	      } else if (JSON.stringify(obj) === "{}") {
+	      if (JSON.stringify(obj) === "{}") {
 	        return "{ }";
 	      } else {
 	        return _react2.default.createElement(
@@ -151,8 +139,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	            _react2.default.createElement(
 	              "tr",
 	              null,
-	              Object.keys(obj).map(function (key, i) {
-	                return _this3.renderTd(obj[key], i);
+	              (0, _util.loopObject)(obj, function (v, key) {
+	                return _this3.renderTd(v, key);
 	              })
 	            )
 	          )
@@ -164,7 +152,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    value: function arrayToTable(obj) {
 	      var _this4 = this;
 
-	      if (Array.isArray(obj) === true && obj.length === ZERO) {
+	      if ((0, _util.getType)(obj) === "Array" && obj.length === ZERO) {
 	        return "[ ]";
 	      } else {
 	        return _react2.default.createElement(
@@ -173,21 +161,50 @@ return /******/ (function(modules) { // webpackBootstrap
 	          _react2.default.createElement(
 	            "tbody",
 	            null,
-	            Object.keys(obj).map(function (key, i) {
+	            (0, _util.loopObject)(obj, function (v, key) {
 	              return _react2.default.createElement(
 	                "tr",
 	                null,
 	                _react2.default.createElement(
 	                  "td",
 	                  { style: _this4.constructor.styles.td },
-	                  "" + i
+	                  "" + key
 	                ),
-	                _this4.renderTd(obj[key], i)
+	                _this4.renderTd(v, key)
 	              );
 	            })
 	          )
 	        );
 	      }
+	    }
+	  }, {
+	    key: "oobToTable",
+	    value: function oobToTable(aob) {
+	      var _this5 = this;
+
+	      return _react2.default.createElement(
+	        "table",
+	        null,
+	        this.renderHeaderByKeys(Object.keys((0, _util.getFirstEle)(aob)), "addExtra"),
+	        _react2.default.createElement(
+	          "tbody",
+	          null,
+	          (0, _util.loopObject)(aob, function (row, j) {
+	            return _react2.default.createElement(
+	              "tr",
+	              { key: j },
+	              _react2.default.createElement(
+	                "td",
+	                { style: _this5.constructor.styles.td },
+	                _react2.default.createElement(_ValueViewer2.default, { value: j })
+	              ),
+	              (0, _util.loopObject)((0, _util.getFirstEle)(aob)).map(function (val, key) {
+	                return _this5.renderTd(row[key], key);
+	              })
+	            );
+	          })
+	        )
+	      );
 	    }
 	  }, {
 	    key: "renderTd",
@@ -201,117 +218,46 @@ return /******/ (function(modules) { // webpackBootstrap
 	  }, {
 	    key: "decideAndRender",
 	    value: function decideAndRender(guess) {
-	      if (Array.isArray(guess) === true) {
-	        if (this.checkIfArrayIsAOB(guess)) {
+	      if ((0, _util.getType)(guess) === "Array") {
+	        if ((0, _util.checkIfArrayIsAOB)(guess)) {
 	          return this.aobToTable(guess);
 	        } else {
 	          return this.arrayToTable(guess);
 	        }
-	      } else {
-	        if ((typeof guess === "undefined" ? "undefined" : _typeof(guess)) === "object" && guess !== null) {
-	          if (this.checkIfObjectIsOOB(guess)) {
-	            return this.oobToTable(guess);
-	          } else {
-	            return this.objToTable(guess);
-	          }
+	      }
+	      if ((0, _util.getType)(guess) === "Object") {
+	        if ((0, _util.checkIfObjectIsOOB)(guess)) {
+	          return this.oobToTable(guess);
 	        } else {
-	          return _react2.default.createElement(_ValueViewer2.default, { value: guess });
+	          return this.objToTable(guess);
 	        }
+	      } else {
+	        return _react2.default.createElement(_ValueViewer2.default, { value: guess });
 	      }
 	    }
 	  }, {
 	    key: "aobToTable",
 	    value: function aobToTable(aob) {
-	      var _this5 = this;
-
-	      var keys = Object.keys(aob[0]);
-	      return _react2.default.createElement(
-	        "table",
-	        null,
-	        this.renderHeaderByKeys(keys),
-	        _react2.default.createElement(
-	          "tbody",
-	          null,
-	          Object.keys(aob).map(function (j) {
-	            var row = aob[j];
-	            return _react2.default.createElement(
-	              "tr",
-	              { key: j },
-	              keys.map(function (v, i) {
-	                return _this5.renderTd(row[v], i);
-	              })
-	            );
-	          })
-	        )
-	      );
-	    }
-	  }, {
-	    key: "oobToTable",
-	    value: function oobToTable(aob) {
 	      var _this6 = this;
 
-	      var keys = Object.keys(aob[Object.keys(aob)[0]]);
 	      return _react2.default.createElement(
 	        "table",
 	        null,
-	        this.renderHeaderByKeys(keys, "addExtra"),
+	        this.renderHeaderByKeys(Object.keys((0, _util.getFirstEle)(aob))),
 	        _react2.default.createElement(
 	          "tbody",
 	          null,
-	          Object.keys(aob).map(function (j) {
-	            var row = aob[j];
+	          (0, _util.loopObject)(aob, function (row, j) {
 	            return _react2.default.createElement(
 	              "tr",
 	              { key: j },
-	              _react2.default.createElement(
-	                "td",
-	                { style: _this6.constructor.styles.td },
-	                _react2.default.createElement(_ValueViewer2.default, { value: j })
-	              ),
-	              keys.map(function (v, i) {
-	                return _this6.renderTd(row[v], i);
+	              (0, _util.loopObject)((0, _util.getFirstEle)(aob), function (val, key) {
+	                return _this6.renderTd(row[key], key);
 	              })
 	            );
 	          })
 	        )
 	      );
-	    }
-	  }, {
-	    key: "checkIfArrayIsAOB",
-	    value: function checkIfArrayIsAOB(arr) {
-	      if (Array.isArray(arr) === true && arr.length !== ZERO && _typeof(arr[0]) === "object" && arr.length > ONE) {
-	        var obj = arr;
-	        var test = Object.keys(obj).map(function (i) {
-	          if (obj[i] !== null && _typeof(obj[i]) === "object") {
-	            return Object.keys(obj[i]).sort().join(",");
-	          } else {
-	            return "";
-	          }
-	        });
-	        if (test.length > ONE && test[0].length > ONE) {
-	          return allValuesSameInArray(test);
-	        } else {
-	          return false;
-	        }
-	      } else {
-	        return false;
-	      }
-	    }
-	  }, {
-	    key: "checkIfObjectIsOOB",
-	    value: function checkIfObjectIsOOB(obj) {
-	      var test = Object.keys(obj).map(function (i) {
-	        if (obj[i] !== null && _typeof(obj[i]) === "object") {
-	          return Object.keys(obj[i]).sort().join(",");
-	        } else {
-	          return "";
-	        }
-	      });
-	      if (test.length > ONE && test[0].length > ONE) {
-	        return allValuesSameInArray(test);
-	      } else {
-	        return false;
-	      }
 	    }
 	  }, {
 	    key: "render",
@@ -366,13 +312,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	  value: true
 	});
 
-	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj; };
-
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 	var _react = __webpack_require__(1);
 
 	var _react2 = _interopRequireDefault(_react);
+
+	var _util = __webpack_require__(4);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -394,36 +340,42 @@ return /******/ (function(modules) { // webpackBootstrap
 	  _createClass(ValueViewer, [{
 	    key: "r",
 	    value: function r() {
-	      switch (_typeof(this.props.value)) {
-	        case "string":
+	      switch ((0, _util.getType)(this.props.value)) {
+	        case "String":
 	          return _react2.default.createElement(
 	            "span",
 	            { style: { color: "rgb(255, 65, 60)" } },
 	            "\"" + this.props.value + "\""
 	          );
-	        case "boolean":
+	        case "Boolean":
 	          return _react2.default.createElement(
 	            "span",
 	            { style: { color: "rgb(31, 48, 255)" } },
 	            "" + this.props.value
 	          );
-	        case "number":
+	        case "Number":
 	          return _react2.default.createElement(
 	            "span",
 	            { style: { color: "rgb(31, 49, 255)" } },
 	            "" + this.props.value
 	          );
-	        case "undefined":
+	        case "Undefined":
 	          return _react2.default.createElement(
 	            "i",
 	            { style: { color: "#777777" } },
-	            "" + this.props.value
+	            "undefined"
 	          );
-	        case "object":
+	        case "Null":
 	          return _react2.default.createElement(
 	            "i",
 	            { style: { color: "#777777" } },
-	            "" + this.props.value
+	            "null"
+	          );
+	        case "Date":
+	          return _react2.default.createElement(
+	            "i",
+	            { style: { color: "#007bc7;" } },
+	            "" + JSON.stringify(this.props.value)
 	          );
 	        default:
 	          return _react2.default.createElement(
@@ -450,6 +402,92 @@ return /******/ (function(modules) { // webpackBootstrap
 	ValueViewer.propTypes = {};
 	ValueViewer.defaultProps = {};
 	exports.default = ValueViewer;
+
+/***/ },
+/* 4 */
+/***/ function(module, exports) {
+
+	"use strict";
+
+	/**
+	 * Created by narendrasisodiya on 28/10/16.
+	 */
+
+	var ONE = 1;
+	var loopObject = function loopObject(obj, cb, sorted) {
+	  var keys = Object.keys(obj);
+	  if (sorted === true) {
+	    keys.sort();
+	  }
+	  return keys.map(function (key) {
+	    return cb(obj[key], key);
+	  });
+	};
+	var getSortedKeyString = function getSortedKeyString(obj) {
+	  return Object.keys(obj).sort().join(",");
+	};
+	var getType = function getType(val) {
+	  return Object.prototype.toString.call(val).replace(/^\[object\s(.*)\]$/, "$1");
+	};
+	var getFirstEle = function getFirstEle(obj) {
+	  return obj[Object.keys(obj)[0]];
+	};
+
+	var allValuesSameInArray = function allValuesSameInArray(arr) {
+	  for (var i = 1; i < arr.length; i++) {
+	    if (arr[i] !== arr[0]) {
+	      return false;
+	    }
+	  }
+	  return true;
+	};
+
+	var checkIfArrayIsAOB = function checkIfArrayIsAOB(obj) {
+	  if (getType(obj) === "Array" && obj.length > ONE && getType(getFirstEle(obj)) === "Object") {
+	    var test = loopObject(obj, function (row) {
+	      if (getType(row) === "Object") {
+	        return getSortedKeyString(row);
+	      } else {
+	        return "";
+	      }
+	    });
+	    if (test.length > ONE && test[0].length > ONE) {
+	      return allValuesSameInArray(test);
+	    } else {
+	      return false;
+	    }
+	  } else {
+	    return false;
+	  }
+	};
+	var checkIfObjectIsOOB = function checkIfObjectIsOOB(obj) {
+	  if (getType(obj) === "Object" && Object.keys(obj).length > ONE && getType(getFirstEle(obj)) === "Object") {
+	    var test = loopObject(obj, function (row) {
+	      if (getType(row) === "Object") {
+	        return getSortedKeyString(row);
+	      } else {
+	        return "";
+	      }
+	    });
+	    if (test.length > ONE && test[0].length > ONE) {
+	      return allValuesSameInArray(test);
+	    } else {
+	      return false;
+	    }
+	  } else {
+	    return false;
+	  }
+	};
+
+	module.exports = {
+	  loopObject: loopObject,
+	  getSortedKeyString: getSortedKeyString,
+	  getType: getType,
+	  getFirstEle: getFirstEle,
+	  allValuesSameInArray: allValuesSameInArray,
+	  checkIfArrayIsAOB: checkIfArrayIsAOB,
+	  checkIfObjectIsOOB: checkIfObjectIsOOB
+	};
 
 /***/ }
 /******/ ])

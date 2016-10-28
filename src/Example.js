@@ -5,6 +5,7 @@
 "use strict";
 import React, {Component} from "react";
 import ReactDOM from "react-dom";
+
 /*global ReactJSONViewer*/
 class Example extends Component {
   constructor() {
@@ -20,16 +21,34 @@ class Example extends Component {
         age: 32,
         place: "Delhi"
       },
-      [{
-        task: "Write  Book",
-        done: false
-      }, {
-        task: "Learn  React",
-        done: true
-      }, {
-        task: "Buy  Mobile",
-        done: false
-      }],
+      {
+        a: [{
+          "task": "Write Book",
+          "done": false,
+          "created": new Date()
+        }, {
+          "task": "Learn React",
+          "done": true,
+          "created": new Date()
+        }, {
+          "task": "Buy Mobile",
+          "done": false,
+          "created": new Date()
+        }],
+        b: [{
+          "task": "Write Book",
+          "done": false,
+          "created": new Date()
+        }, {
+          "task": "Learn React",
+          "done": true,
+          "created": new Date()
+        }, {
+          "task": "Buy Mobile",
+          "done": false,
+          "created": new Date()
+        }]
+      },
       {
         dateWiseData: {
           "2016-02-14": {

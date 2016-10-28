@@ -96,16 +96,34 @@ return /******/ (function(modules) { // webpackBootstrap
 	      name: "Narendra",
 	      age: 32,
 	      place: "Delhi"
-	    }, [{
-	      task: "Write  Book",
-	      done: false
 	    }, {
-	      task: "Learn  React",
-	      done: true
+	      a: [{
+	        "task": "Write Book",
+	        "done": false,
+	        "created": new Date()
+	      }, {
+	        "task": "Learn React",
+	        "done": true,
+	        "created": new Date()
+	      }, {
+	        "task": "Buy Mobile",
+	        "done": false,
+	        "created": new Date()
+	      }],
+	      b: [{
+	        "task": "Write Book",
+	        "done": false,
+	        "created": new Date()
+	      }, {
+	        "task": "Learn React",
+	        "done": true,
+	        "created": new Date()
+	      }, {
+	        "task": "Buy Mobile",
+	        "done": false,
+	        "created": new Date()
+	      }]
 	    }, {
-	      task: "Buy  Mobile",
-	      done: false
-	    }], {
 	      dateWiseData: {
 	        "2016-02-14": {
 	          availableRooms: 10,

@@ -2,18 +2,14 @@
 
 import React, {Component} from "react";
 import ValueViewer from "./ValueViewer";
-
+import {
+  loopObject,
+  getType,
+  getFirstEle,
+  checkIfArrayIsAOB,
+  checkIfObjectIsOOB
+} from "./util";
 var ZERO = 0;
-var ONE = 1;
-
-var allValuesSameInArray = function (arr) {
-  for(var i = 1; i < arr.length; i++) {
-    if (arr[i] !== arr[0]) {
-      return false;
-    }
-  }
-  return true;
-};
 
 var JSONViewer = class JSONViewer extends Component {
   constructor(props, context) {
@@ -48,9 +44,7 @@ var JSONViewer = class JSONViewer extends Component {
   }
 
   objToTable(obj) {
-    if (Array.isArray(obj) === true && obj.length === ZERO) {
-      return "[ ]";
-    } else if (JSON.stringify(obj) === "{}") {
+    if (JSON.stringify(obj) === "{}") {
       return "{ }";
     } else {
       return (
@@ -58,8 +52,8 @@ var JSONViewer = class JSONViewer extends Component {
           {this.renderHeaderByKeys(Object.keys(obj))}
           <tbody>
           <tr>{
-            Object.keys(obj).map((key, i) => {
-              return this.renderTd(obj[key], i);
+            loopObject(obj, (v, key) => {
+              return this.renderTd(v, key);
             })
           }</tr>
           </tbody>
@@ -69,17 +63,17 @@ var JSONViewer = class JSONViewer extends Component {
   }
 
   arrayToTable(obj) {
-    if (Array.isArray(obj) === true && obj.length === ZERO) {
+    if (getType(obj) === "Array" && obj.length === ZERO) {
       return "[ ]";
     } else {
       return (
         <table>
           <tbody>
           {
-            Object.keys(obj).map((key, i) => {
+            loopObject(obj, (v, key) => {
               return <tr>
-                <td style={this.constructor.styles.td}>{`${i}`}</td>
-                {this.renderTd(obj[key], i)}
+                <td style={this.constructor.styles.td}>{`${key}`}</td>
+                {this.renderTd(v, key)}
               </tr>;
             })
           }
@@ -89,72 +83,19 @@ var JSONViewer = class JSONViewer extends Component {
     }
   }
 
-  renderTd(guess, index) {
-    return (
-      <td key={index} style={this.constructor.styles.td}>{
-        this.decideAndRender(guess)
-      }</td>
-    );
-  }
-
-  decideAndRender(guess) {
-    if (Array.isArray(guess) === true) {
-      if (this.checkIfArrayIsAOB(guess)) {
-        return this.aobToTable(guess);
-      } else {
-        return this.arrayToTable(guess);
-      }
-    } else {
-      if (typeof guess === "object" && guess !== null) {
-        if (this.checkIfObjectIsOOB(guess)) {
-          return this.oobToTable(guess);
-        } else {
-          return this.objToTable(guess);
-        }
-      } else {
-        return <ValueViewer value={guess}></ValueViewer>;
-      }
-    }
-  }
-
-  aobToTable(aob) {
-    var keys = Object.keys(aob[0]);
-    return (
-      <table>
-        {this.renderHeaderByKeys(keys)}
-        <tbody>
-        {
-          Object.keys(aob).map((j)=> {
-            var row = aob[j];
-            return (
-              <tr key={j}>{
-                keys.map((v, i)=> {
-                  return this.renderTd(row[v], i);
-                })
-              }</tr>
-            );
-          })
-        }
-        </tbody>
-      </table>
-    );
-  }
-
   oobToTable(aob) {
-    var keys = Object.keys(aob[Object.keys(aob)[0]]);
     return (
       <table>
-        {this.renderHeaderByKeys(keys, "addExtra")}
+        {this.renderHeaderByKeys(Object.keys(getFirstEle(aob)), "addExtra")}
         <tbody>
         {
-          Object.keys(aob).map((j)=> {
-            var row = aob[j];
+          loopObject(aob, (row, j)=> {
             return (
               <tr key={j}>
                 <td style={this.constructor.styles.td}><ValueViewer value={j}/></td>
                 {
-                  keys.map((v, i)=> {
-                    return this.renderTd(row[v], i);
+                  loopObject(getFirstEle(aob)).map((val, key)=> {
+                    return this.renderTd(row[key], key);
                   })
                 }
               </tr>
@@ -166,39 +107,52 @@ var JSONViewer = class JSONViewer extends Component {
     );
   }
 
-  checkIfArrayIsAOB(arr) {
-    if (Array.isArray(arr) === true && arr.length !== ZERO && typeof arr[0] === "object" && arr.length > ONE) {
-      var obj = arr;
-      var test = Object.keys(obj).map(function (i) {
-        if (obj[i] !== null && typeof obj[i] === "object") {
-          return Object.keys(obj[i]).sort().join(",");
-        } else {
-          return "";
-        }
-      });
-      if (test.length > ONE && test[0].length > ONE) {
-        return allValuesSameInArray(test);
+  renderTd(guess, index) {
+    return (
+      <td key={index} style={this.constructor.styles.td}>{
+        this.decideAndRender(guess)
+      }</td>
+    );
+  }
+
+  decideAndRender(guess) {
+    if (getType(guess) === "Array") {
+      if (checkIfArrayIsAOB(guess)) {
+        return this.aobToTable(guess);
       } else {
-        return false;
+        return this.arrayToTable(guess);
+      }
+    }
+    if (getType(guess) === "Object") {
+      if (checkIfObjectIsOOB(guess)) {
+        return this.oobToTable(guess);
+      } else {
+        return this.objToTable(guess);
       }
     } else {
-      return false;
+      return <ValueViewer value={guess}></ValueViewer>;
     }
   }
 
-  checkIfObjectIsOOB(obj) {
-    var test = Object.keys(obj).map(function (i) {
-      if (obj[i] !== null && typeof obj[i] === "object") {
-        return Object.keys(obj[i]).sort().join(",");
-      } else {
-        return "";
-      }
-    });
-    if (test.length > ONE && test[0].length > ONE) {
-      return allValuesSameInArray(test);
-    } else {
-      return false;
-    }
+  aobToTable(aob) {
+    return (
+      <table>
+        {this.renderHeaderByKeys(Object.keys(getFirstEle(aob)))}
+        <tbody>
+        {
+          loopObject(aob, (row, j)=> {
+            return (
+              <tr key={j}>{
+                loopObject(getFirstEle(aob), (val, key)=> {
+                  return this.renderTd(row[key], key);
+                })
+              }</tr>
+            );
+          })
+        }
+        </tbody>
+      </table>
+    );
   }
 
   render() {

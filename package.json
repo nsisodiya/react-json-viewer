@@ -1,6 +1,6 @@
 {
   "name": "react-json-viewer",
-  "version": "1.6.0",
+  "version": "1.6.1",
   "description": "react component for json viewing in tabular format",
   "main": "dist/ReactJSONViewer.js",
   "files": [
@@ -8,9 +8,7 @@
   ],
   "scripts": {
     "server": "webpack-dev-server --content-base ./dist --port 8912 --colors --history-api-fallback",
-    "dist": "webpack",
-    "preinstall": "npm prune",
-    "postinstall": "npm outdated"
+    "dist": "webpack"
   },
   "repository": {
     "type": "git",

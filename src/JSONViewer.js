@@ -1,5 +1,6 @@
 "use strict";
 
+import PropTypes from 'prop-types';
 import React, {Component} from "react";
 import ValueViewer from "./ValueViewer";
 import {
@@ -165,13 +166,13 @@ var JSONViewer = class JSONViewer extends Component {
   }
 };
 JSONViewer.propTypes = {
-  json: React.PropTypes.any.isRequired,
-  tableProps: React.PropTypes.object,
-  trProps: React.PropTypes.object,
-  tdProps: React.PropTypes.object,
-  thProps: React.PropTypes.object,
-  tbodyProps: React.PropTypes.object,
-  theadProps: React.PropTypes.object
+  json: PropTypes.any.isRequired,
+  tableProps: PropTypes.object,
+  trProps: PropTypes.object,
+  tdProps: PropTypes.object,
+  thProps: PropTypes.object,
+  tbodyProps: PropTypes.object,
+  theadProps: PropTypes.object
 };
 
 

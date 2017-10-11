@@ -1,21 +1,14 @@
+let path = require("path");
 module.exports = {
   entry: {
     Example: "./src/Example.js",
     ReactJSONViewer: "./src/JSONViewer.js"
   },
   output: {
-    path: "dist",
+    path: path.resolve(__dirname, "dist"),
     filename: "[name].js",
     libraryTarget: "umd",
     library: "[name]"
-  },
-  eslint: {
-    //fix: true,
-    failOnWarning: false,
-    failOnError: true,
-    emitError: true,
-    configFile: ".eslintrc",
-    formatter: require("eslint/lib/formatters/stylish")
   },
   externals: {
     "react": {
@@ -32,19 +25,19 @@ module.exports = {
     }
   },
   module: {
-    preLoaders: [
+    rules: [
       {
         test: /\.jsx?$/,
-        loader: "eslint",
+        enforce: "pre",
+        loader: "eslint-loader",
         exclude: /node_modules/
-      }
-    ],
-    loaders: [
+      },
       {
-        test: /.jsx?$/,
-        loader: "babel",
+        test: /\.jsx?$/,
+        exclude: /(node_modules)/,
+        loader: 'babel-loader', // 'babel-loader' is also a legal name to reference
         query: {
-          presets: ["es2015", "react"]
+          presets: ['react', 'es2015']
         }
       }
     ]

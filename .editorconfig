@@ -1,0 +1,14 @@
+root = true
+
+[*.{js,json,css}]
+indent_style = space
+indent_size = 2
+end_of_line = lf
+charset = utf-8
+trim_trailing_whitespace = true
+
+[{package.json}]
+insert_final_newline = false
+
+[*.{js,css}]
+insert_final_newline = true

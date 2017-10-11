@@ -1,6 +1,6 @@
 "use strict";
 
-import PropTypes from 'prop-types';
+import PropTypes from "prop-types";
 import React, {Component} from "react";
 import ValueViewer from "./ValueViewer";
 import {
@@ -20,26 +20,26 @@ var JSONViewer = class JSONViewer extends Component {
   renderHeaderByKeys(keys, addExtra) {
     return (
       <thead {...this.props.theadProps}>
-      <tr {...this.props.trProps}>
-        {
-          (()=> {
-            if (addExtra === "addExtra") {
-              return <th {...this.props.thProps} style={this.constructor.styles.td}>
-                <span style={{color: "rgb(111, 11, 11)"}}></span>
-              </th>;
-            }
-          })()
-        }
-        {
-          keys.map((key, i) => {
-            return (
-              <th {...this.props.tdProps} key={i} style={this.constructor.styles.td}>
-                <span style={{color: "rgb(111, 11, 11)"}}>{key}</span>
-              </th>
-            );
-          })
-        }
-      </tr>
+        <tr {...this.props.trProps}>
+          {
+            (()=> {
+              if (addExtra === "addExtra") {
+                return <th {...this.props.thProps} style={this.constructor.styles.td}>
+                  <span style={{color: "rgb(111, 11, 11)"}}></span>
+                </th>;
+              }
+            })()
+          }
+          {
+            keys.map((key, i) => {
+              return (
+                <th {...this.props.tdProps} key={i} style={this.constructor.styles.td}>
+                  <span style={{color: "rgb(111, 11, 11)"}}>{key}</span>
+                </th>
+              );
+            })
+          }
+        </tr>
       </thead>
     );
   }
@@ -52,11 +52,11 @@ var JSONViewer = class JSONViewer extends Component {
         <table {...this.props.tableProps}>
           {this.renderHeaderByKeys(Object.keys(obj))}
           <tbody>
-          <tr {...this.props.trProps}>{
-            loopObject(obj, (v, key) => {
-              return this.renderTd(v, key);
-            })
-          }</tr>
+            <tr {...this.props.trProps}>{
+              loopObject(obj, (v, key) => {
+                return this.renderTd(v, key);
+              })
+            }</tr>
           </tbody>
         </table>
       );
@@ -70,14 +70,14 @@ var JSONViewer = class JSONViewer extends Component {
       return (
         <table {...this.props.tableProps}>
           <tbody>
-          {
-            loopObject(obj, (v, key) => {
-              return <tr {...this.props.trProps}>
-                <td {...this.props.tdProps} style={this.constructor.styles.td}>{`${key}`}</td>
-                {this.renderTd(v, key)}
-              </tr>;
-            })
-          }
+            {
+              loopObject(obj, (v, key) => {
+                return <tr {...this.props.trProps}>
+                  <td {...this.props.tdProps} style={this.constructor.styles.td}>{`${key}`}</td>
+                  {this.renderTd(v, key)}
+                </tr>;
+              })
+            }
           </tbody>
         </table>
       );
@@ -89,20 +89,20 @@ var JSONViewer = class JSONViewer extends Component {
       <table {...this.props.tableProps}>
         {this.renderHeaderByKeys(Object.keys(getFirstEle(aob)), "addExtra")}
         <tbody>
-        {
-          loopObject(aob, (row, j)=> {
-            return (
-              <tr {...this.props.trProps} key={j}>
-                <td {...this.props.tdProps} style={this.constructor.styles.td}><ValueViewer value={j}/></td>
-                {
-                  loopObject(getFirstEle(aob), (val, key)=> {
-                    return this.renderTd(row[key], key);
-                  })
-                }
-              </tr>
-            );
-          })
-        }
+          {
+            loopObject(aob, (row, j)=> {
+              return (
+                <tr {...this.props.trProps} key={j}>
+                  <td {...this.props.tdProps} style={this.constructor.styles.td}><ValueViewer value={j}/></td>
+                  {
+                    loopObject(getFirstEle(aob), (val, key)=> {
+                      return this.renderTd(row[key], key);
+                    })
+                  }
+                </tr>
+              );
+            })
+          }
         </tbody>
       </table>
     );
@@ -140,17 +140,17 @@ var JSONViewer = class JSONViewer extends Component {
       <table {...this.props.tableProps}>
         {this.renderHeaderByKeys(Object.keys(getFirstEle(aob)))}
         <tbody {...this.props.tbodyProps}>
-        {
-          loopObject(aob, (row, j)=> {
-            return (
-              <tr {...this.props.trProps} key={j}>{
-                loopObject(getFirstEle(aob), (val, key)=> {
-                  return this.renderTd(row[key], key);
-                })
-              }</tr>
-            );
-          })
-        }
+          {
+            loopObject(aob, (row, j)=> {
+              return (
+                <tr {...this.props.trProps} key={j}>{
+                  loopObject(getFirstEle(aob), (val, key)=> {
+                    return this.renderTd(row[key], key);
+                  })
+                }</tr>
+              );
+            })
+          }
         </tbody>
       </table>
     );

@@ -37,7 +37,7 @@ module.exports = {
         exclude: /(node_modules)/,
         loader: 'babel-loader', // 'babel-loader' is also a legal name to reference
         query: {
-          presets: ['react', 'es2015']
+          presets: ['es2015', 'react']
         }
       }
     ]

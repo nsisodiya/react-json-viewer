@@ -79,14 +79,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 	/*global ReactJSONViewer*/
-
 	var Example = function (_Component) {
 	  _inherits(Example, _Component);
 
 	  function Example() {
 	    _classCallCheck(this, Example);
 
-	    var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(Example).call(this));
+	    var _this = _possibleConstructorReturn(this, (Example.__proto__ || Object.getPrototypeOf(Example)).call(this));
 
 	    _this.state = {
 	      userJson: {}

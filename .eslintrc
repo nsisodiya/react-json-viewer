@@ -1,78 +1,94 @@
 {
 	"extends": "eslint:recommended",
+	"parser": "babel-eslint",
 	"parserOptions": {
-		"ecmaVersion": 6,
+		"ecmaVersion": 2017,
 		"ecmaFeatures": {
-			"jsx": true
+			"jsx": true,
+			"spread": true,
+			"classes": true,
+			"experimentalObjectRestSpread": true
+
 		},
 		"sourceType": "module"
 	},
+	"plugins": [
+		"babel",
+		"react"
+	],
 	"env": {
 		"browser": true,
 		"node": true,
 		"es6": true,
-		"worker": true
+		"worker": true,
+		"mocha": true
 	},
-	"plugins": [
-		"react"
-	],
 	"globals": {
-		"window": true
+		"window": true,
+		"define": true
 	},
 	"rules": {
-		"semi": [
+		"babel/semi": [
 			"error",
 			"always"
 		],
-		"curly": 2,
+		"curly": 1,
 		"eqeqeq": 2,
 		"no-console": 0,
-		"new-cap": 2,
+		"babel/new-cap": 2,
 		"strict": 0,
-		"no-underscore-dangle": 2,
+		"no-underscore-dangle": 1,
 		"quotes": [
 			"error",
-			"double"
+			"double",
+			{
+				"allowTemplateLiterals": true
+			}
 		],
 		"jsx-quotes": 2,
-		"react/jsx-no-undef": 2,
-		"react/jsx-uses-react": 2,
-		"react/jsx-uses-vars": 2,
 		"array-callback-return": 2,
-		//"complexity": [2, 4],
 		"dot-notation": 2,
-		"no-alert": 2,
+		"no-alert": 1,
 		"no-eq-null": 2,
+		"no-empty": 2,
+		"no-ternary": 2,
+		"no-multiple-empty-lines": [
+			2,
+			{
+				"max": 1
+			}
+		],
+		"no-duplicate-imports": 2,
 		"no-empty-function": 2,
 		"no-eval": 2,
 		"no-extend-native": 2,
 		"no-floating-decimal": 2,
-		"no-invalid-this": 2,
+		"babel/no-invalid-this": 2,
 		"no-lone-blocks": 2,
 		"no-loop-func": 2,
-		"no-magic-numbers": [
-			2,
-			{
-				"ignoreArrayIndexes": true
-			}
-		],
 		"no-multi-spaces": 2,
 		"no-multi-str": 2,
 		"no-native-reassign": 2,
 		"no-param-reassign": 2,
-		"no-proto": 2,
+		"no-proto": 1,
 		"no-redeclare": 2,
 		"no-script-url": 2,
 		"no-self-assign": 2,
 		"no-self-compare": 2,
 		"no-sequences": 2,
 		"no-throw-literal": 2,
-		"no-unused-expressions": 2,
+		"no-unused-expressions": 1,
 		"no-void": 2,
 		"yoda": 2,
-		"no-shadow": 2,
-		"no-unused-vars": 2,
-		"no-use-before-define": 2,
+		"no-shadow": 1,
+		"no-unused-vars": [
+			2,
+			{
+				"vars": "all",
+				"args": "after-used"
+			}
+		],
+		"no-use-before-define": 1,
 		"array-bracket-spacing": [
 			2,
 			"never"
@@ -84,6 +100,13 @@
 			}
 		],
 		"brace-style": 2,
+		"quote-props": [
+			"error",
+			"as-needed",
+			{
+				"keywords": false
+			}
+		],
 		"comma-spacing": [
 			2,
 			{
@@ -95,18 +118,7 @@
 			2,
 			"last"
 		],
-		"consistent-this": [
-			2,
-			"self"
-		],
 		"eol-last": 2,
-		"indent": [
-			2,
-			2,
-			{
-				"SwitchCase": 1
-			}
-		],
 		"key-spacing": [
 			2,
 			{
@@ -114,32 +126,40 @@
 				"afterColon": true
 			}
 		],
-		//"key-spacing": [2, { "align": "colon", "beforeColon": true, "afterColon": false }]
 		"keyword-spacing": [
 			2,
 			{
 				"overrides": {
-					"if": {
-						"after": true
-					},
 					"for": {
-						"after": false
-					},
-					"while": {
-						"after": false
+						"after": true
 					}
 				}
 			}
 		],
+		"no-trailing-spaces": 2,
 		"linebreak-style": [
 			2,
 			"unix"
 		],
-		//"max-statements": 200,
 		"new-parens": 2,
 		"no-confusing-arrow": 2,
 		"no-const-assign": 2,
 		"no-dupe-class-members": 2,
-		"prefer-template": 2
+		"prefer-template": 1,
+		"react/jsx-first-prop-new-line": 2,
+		"react/display-name": 0, // Prevent missing displayName in a React component definition
+		//"react/jsx-quotes": [2, "double", "avoid-escape"], // Enforce quote style for JSX attributes
+		"react/jsx-no-undef": 2, // Disallow undeclared variables in JSX
+		"react/jsx-sort-props": 0, // Enforce props alphabetical sorting
+		"react/jsx-uses-react": 2, // Prevent React to be incorrectly marked as unused
+		"react/jsx-uses-vars": 2, // Prevent variables used in JSX to be incorrectly marked as unused
+		"react/no-did-mount-set-state": 2, // Prevent usage of setState in componentDidMount
+		"react/no-did-update-set-state": 2, // Prevent usage of setState in componentDidUpdate
+		"react/no-multi-comp": 0, // Prevent multiple component definition per file
+		"react/no-unknown-property": 2, // Prevent usage of unknown DOM property
+		"react/prop-types": 2, // Prevent missing props validation in a React component definition
+		"react/react-in-jsx-scope": 2, // Prevent missing React when using JSX
+		"react/self-closing-comp": 2 // Prevent extra closing tags for components without children
+		//"react/wrap-multilines": 2 // Prevent missing parentheses around multilines JSX
 	}
 }

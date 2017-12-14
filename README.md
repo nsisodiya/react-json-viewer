@@ -46,7 +46,18 @@ var todos = [{
 
 # Develop
 ```
+
+Develop
+
 npm install
-npm run server
-open http://localhost:8912
+npm run devserver
+open http://localhost:8900
+
+Build
+
+npm run build
+
+SourceCode Beautify
+npm run prettier
+
 ```

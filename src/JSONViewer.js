@@ -1,15 +1,9 @@
 "use strict";
 
-import React, {Component} from "react";
+import React, { Component } from "react";
 import PropTypes from "prop-types";
 import ValueViewer from "./ValueViewer";
-import {
-  loopObject,
-  getType,
-  getFirstEle,
-  checkIfArrayIsAOB,
-  checkIfObjectIsOOB
-} from "./util";
+import { loopObject, getType, getFirstEle, checkIfArrayIsAOB, checkIfObjectIsOOB } from "./util";
 var ZERO = 0;
 
 var JSONViewer = class JSONViewer extends Component {
@@ -20,26 +14,24 @@ var JSONViewer = class JSONViewer extends Component {
   renderHeaderByKeys(keys, addExtra) {
     return (
       <thead {...this.props.theadProps}>
-      <tr {...this.props.trProps}>
-        {
-          (()=> {
+        <tr {...this.props.trProps}>
+          {(() => {
             if (addExtra === "addExtra") {
-              return <th {...this.props.thProps} style={this.constructor.styles.td}>
-                <span style={{color: "rgb(111, 11, 11)"}}></span>
-              </th>;
+              return (
+                <th {...this.props.thProps} style={this.constructor.styles.td}>
+                  <span style={{ color: "rgb(111, 11, 11)" }} />
+                </th>
+              );
             }
-          })()
-        }
-        {
-          keys.map((key, i) => {
+          })()}
+          {keys.map((key, i) => {
             return (
               <th {...this.props.tdProps} key={i} style={this.constructor.styles.td}>
-                <span style={{color: "rgb(111, 11, 11)"}}>{key}</span>
+                <span style={{ color: "rgb(111, 11, 11)" }}>{key}</span>
               </th>
             );
-          })
-        }
-      </tr>
+          })}
+        </tr>
       </thead>
     );
   }
@@ -52,11 +44,11 @@ var JSONViewer = class JSONViewer extends Component {
         <table {...this.props.tableProps}>
           {this.renderHeaderByKeys(Object.keys(obj))}
           <tbody>
-          <tr {...this.props.trProps}>{
-            loopObject(obj, (v, key) => {
-              return this.renderTd(v, key);
-            })
-          }</tr>
+            <tr {...this.props.trProps}>
+              {loopObject(obj, (v, key) => {
+                return this.renderTd(v, key);
+              })}
+            </tr>
           </tbody>
         </table>
       );
@@ -70,14 +62,14 @@ var JSONViewer = class JSONViewer extends Component {
       return (
         <table {...this.props.tableProps}>
           <tbody>
-          {
-            loopObject(obj, (v, key) => {
-              return <tr {...this.props.trProps}>
-                <td {...this.props.tdProps} style={this.constructor.styles.td}>{`${key}`}</td>
-                {this.renderTd(v, key)}
-              </tr>;
-            })
-          }
+            {loopObject(obj, (v, key) => {
+              return (
+                <tr {...this.props.trProps}>
+                  <td {...this.props.tdProps} style={this.constructor.styles.td}>{`${key}`}</td>
+                  {this.renderTd(v, key)}
+                </tr>
+              );
+            })}
           </tbody>
         </table>
       );
@@ -89,20 +81,18 @@ var JSONViewer = class JSONViewer extends Component {
       <table {...this.props.tableProps}>
         {this.renderHeaderByKeys(Object.keys(getFirstEle(aob)), "addExtra")}
         <tbody>
-        {
-          loopObject(aob, (row, j)=> {
+          {loopObject(aob, (row, j) => {
             return (
               <tr {...this.props.trProps} key={j}>
-                <td {...this.props.tdProps} style={this.constructor.styles.td}><ValueViewer value={j}/></td>
-                {
-                  loopObject(getFirstEle(aob), (val, key)=> {
-                    return this.renderTd(row[key], key);
-                  })
-                }
+                <td {...this.props.tdProps} style={this.constructor.styles.td}>
+                  <ValueViewer value={j} />
+                </td>
+                {loopObject(getFirstEle(aob), (val, key) => {
+                  return this.renderTd(row[key], key);
+                })}
               </tr>
             );
-          })
-        }
+          })}
         </tbody>
       </table>
     );
@@ -110,9 +100,9 @@ var JSONViewer = class JSONViewer extends Component {
 
   renderTd(guess, index) {
     return (
-      <td {...this.props.tdProps} key={index} style={this.constructor.styles.td}>{
-        this.decideAndRender(guess)
-      }</td>
+      <td {...this.props.tdProps} key={index} style={this.constructor.styles.td}>
+        {this.decideAndRender(guess)}
+      </td>
     );
   }
 
@@ -131,7 +121,7 @@ var JSONViewer = class JSONViewer extends Component {
         return this.objToTable(guess);
       }
     } else {
-      return <ValueViewer value={guess}></ValueViewer>;
+      return <ValueViewer value={guess} />;
     }
   }
 
@@ -140,29 +130,22 @@ var JSONViewer = class JSONViewer extends Component {
       <table {...this.props.tableProps}>
         {this.renderHeaderByKeys(Object.keys(getFirstEle(aob)))}
         <tbody {...this.props.tbodyProps}>
-        {
-          loopObject(aob, (row, j)=> {
+          {loopObject(aob, (row, j) => {
             return (
-              <tr {...this.props.trProps} key={j}>{
-                loopObject(getFirstEle(aob), (val, key)=> {
+              <tr {...this.props.trProps} key={j}>
+                {loopObject(getFirstEle(aob), (val, key) => {
                   return this.renderTd(row[key], key);
-                })
-              }</tr>
+                })}
+              </tr>
             );
-          })
-        }
+          })}
         </tbody>
       </table>
     );
   }
 
   render() {
-    return (
-      <div>{
-        this.decideAndRender(this.props.json)
-      }
-      </div>
-    );
+    return <div>{this.decideAndRender(this.props.json)}</div>;
   }
 };
 JSONViewer.propTypes = {
@@ -172,26 +155,24 @@ JSONViewer.propTypes = {
   tdProps: PropTypes.object,
   thProps: PropTypes.object,
   tbodyProps: PropTypes.object,
-  theadProps: PropTypes.object
+  theadProps: PropTypes.object,
 };
 
-
 JSONViewer.defaultProps = {};
-
 
 JSONViewer.styles = {
   td: {
     border: "1px solid #cccccc",
     textAlign: "left",
     margin: 0,
-    padding: "6px 13px"
+    padding: "6px 13px",
   },
   th: {
     border: "1px solid #cccccc",
     textAlign: "left",
     margin: 0,
     padding: "6px 13px",
-    fontWeight: "bold"
-  }
+    fontWeight: "bold",
+  },
 };
 module.exports = JSONViewer;

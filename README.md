@@ -30,7 +30,7 @@ Note: Images are little old. From version 1.0.7, we show colors too.
 
 # Use
 
-```
+```js
 var JSONViewer = require('react-json-viewer');
 var todos = [{
  task: "Learn React",
@@ -45,8 +45,8 @@ var todos = [{
 ```
 
 # Develop
-```
 
+```
 Develop
 
 npm install

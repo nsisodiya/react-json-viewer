@@ -77,7 +77,7 @@ export default class JSONViewer extends Component {
   }
 
   arrayToTable(obj) {
-    if (getType(obj) === 'Array' && obj.length === ZERO) {
+    if (getType(obj) === 'Array' && obj.length === 0) {
       return '[ ]';
     } else {
       return (
@@ -85,7 +85,7 @@ export default class JSONViewer extends Component {
           <tbody>
             {loopObject(obj, (v, key) => {
               return (
-                <tr {...this.props.trProps}>
+                <tr key={key} {...this.props.trProps}>
                   <td {...this.props.tdProps} style={this.constructor.styles.td}>{`${key}`}</td>
                   {this.renderTd(v, key)}
                 </tr>

@@ -300,7 +300,7 @@ var JSONViewer = function (_Component) {
     value: function arrayToTable(obj) {
       var _this4 = this;
 
-      if (util_3(obj) === 'Array' && obj.length === ZERO) {
+      if (util_3(obj) === 'Array' && obj.length === 0) {
         return '[ ]';
       } else {
         return React__default.createElement(
@@ -312,7 +312,7 @@ var JSONViewer = function (_Component) {
             util_1(obj, function (v, key) {
               return React__default.createElement(
                 'tr',
-                _this4.props.trProps,
+                _extends({ key: key }, _this4.props.trProps),
                 React__default.createElement(
                   'td',
                   _extends({}, _this4.props.tdProps, { style: _this4.constructor.styles.td }),

@@ -15,10 +15,12 @@ var loopObject = function loopObject(obj, cb, sorted) {
 var getSortedKeyString = function getSortedKeyString(obj) {
   return Object.keys(obj)
     .sort()
-    .join(",");
+    .join(',');
 };
 var getType = function(val) {
-  return Object.prototype.toString.call(val).replace(/^\[object\s(.*)\]$/, "$1");
+  return Object.prototype.toString
+    .call(val)
+    .replace(/^\[object\s(.*)\]$/, '$1');
 };
 var getFirstEle = function getFirstEle(obj) {
   return obj[Object.keys(obj)[0]];
@@ -34,12 +36,16 @@ var allValuesSameInArray = function(arr) {
 };
 
 var checkIfArrayIsAOB = function checkIfArrayIsAOB(obj) {
-  if (getType(obj) === "Array" && obj.length > ONE && getType(getFirstEle(obj)) === "Object") {
+  if (
+    getType(obj) === 'Array' &&
+    obj.length > ONE &&
+    getType(getFirstEle(obj)) === 'Object'
+  ) {
     var test = loopObject(obj, function(row) {
-      if (getType(row) === "Object") {
+      if (getType(row) === 'Object') {
         return getSortedKeyString(row);
       } else {
-        return "";
+        return '';
       }
     });
     if (test.length > ONE && test[0].length > ONE) {
@@ -52,12 +58,16 @@ var checkIfArrayIsAOB = function checkIfArrayIsAOB(obj) {
   }
 };
 var checkIfObjectIsOOB = function checkIfObjectIsOOB(obj) {
-  if (getType(obj) === "Object" && Object.keys(obj).length > ONE && getType(getFirstEle(obj)) === "Object") {
+  if (
+    getType(obj) === 'Object' &&
+    Object.keys(obj).length > ONE &&
+    getType(getFirstEle(obj)) === 'Object'
+  ) {
     var test = loopObject(obj, function(row) {
-      if (getType(row) === "Object") {
+      if (getType(row) === 'Object') {
         return getSortedKeyString(row);
       } else {
-        return "";
+        return '';
       }
     });
     if (test.length > ONE && test[0].length > ONE) {
@@ -77,5 +87,5 @@ module.exports = {
   getFirstEle,
   allValuesSameInArray,
   checkIfArrayIsAOB,
-  checkIfObjectIsOOB,
+  checkIfObjectIsOOB
 };

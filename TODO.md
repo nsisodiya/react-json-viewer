@@ -1,2 +1,0 @@
-* Live Reload
-* Test Cases

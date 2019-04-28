@@ -1,6 +1,6 @@
 {
   "name": "react-json-viewer",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "description": "React JSON Viewer Component. View JSON in beautiful tabular format.",
   "author": "nsisodiya",
   "license": "MIT",

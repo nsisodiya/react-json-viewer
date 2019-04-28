@@ -1,24 +1,13 @@
-import React, { Component } from 'react';
+import React, { Component } from 'react'
 
-import JSONViewer from 'react-json-viewer';
+import ExampleComponent from 'react-json-viewer'
 
 export default class App extends Component {
-  render() {
+  render () {
     return (
       <div>
-        <JSONViewer
-          json={[
-            {
-              task: 'Learn React',
-              done: true
-            },
-            {
-              task: 'Write Book',
-              done: false
-            }
-          ]}
-        />
+        <ExampleComponent text='Modern React component module' />
       </div>
-    );
+    )
   }
 }

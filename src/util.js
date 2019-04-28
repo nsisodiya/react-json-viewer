@@ -18,9 +18,7 @@ var getSortedKeyString = function getSortedKeyString(obj) {
     .join(',');
 };
 var getType = function(val) {
-  return Object.prototype.toString
-    .call(val)
-    .replace(/^\[object\s(.*)\]$/, '$1');
+  return Object.prototype.toString.call(val).replace(/^\[object\s(.*)\]$/, '$1');
 };
 var getFirstEle = function getFirstEle(obj) {
   return obj[Object.keys(obj)[0]];
@@ -36,11 +34,7 @@ var allValuesSameInArray = function(arr) {
 };
 
 var checkIfArrayIsAOB = function checkIfArrayIsAOB(obj) {
-  if (
-    getType(obj) === 'Array' &&
-    obj.length > ONE &&
-    getType(getFirstEle(obj)) === 'Object'
-  ) {
+  if (getType(obj) === 'Array' && obj.length > ONE && getType(getFirstEle(obj)) === 'Object') {
     var test = loopObject(obj, function(row) {
       if (getType(row) === 'Object') {
         return getSortedKeyString(row);
@@ -58,11 +52,7 @@ var checkIfArrayIsAOB = function checkIfArrayIsAOB(obj) {
   }
 };
 var checkIfObjectIsOOB = function checkIfObjectIsOOB(obj) {
-  if (
-    getType(obj) === 'Object' &&
-    Object.keys(obj).length > ONE &&
-    getType(getFirstEle(obj)) === 'Object'
-  ) {
+  if (getType(obj) === 'Object' && Object.keys(obj).length > ONE && getType(getFirstEle(obj)) === 'Object') {
     var test = loopObject(obj, function(row) {
       if (getType(row) === 'Object') {
         return getSortedKeyString(row);
@@ -87,5 +77,5 @@ module.exports = {
   getFirstEle,
   allValuesSameInArray,
   checkIfArrayIsAOB,
-  checkIfObjectIsOOB
+  checkIfObjectIsOOB,
 };

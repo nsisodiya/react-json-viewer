@@ -1,11 +1,5 @@
 import React, { Component } from 'react';
-import {
-  checkIfArrayIsAOB,
-  checkIfObjectIsOOB,
-  getFirstEle,
-  getType,
-  loopObject
-} from './util';
+import { checkIfArrayIsAOB, checkIfObjectIsOOB, getFirstEle, getType, loopObject } from './util';
 
 import PropTypes from 'prop-types';
 import ValueViewer from './ValueViewer';
@@ -19,15 +13,15 @@ export default class JSONViewer extends Component {
       border: '1px solid #cccccc',
       textAlign: 'left',
       margin: 0,
-      padding: '6px 13px'
+      padding: '6px 13px',
     },
     th: {
       border: '1px solid #cccccc',
       textAlign: 'left',
       margin: 0,
       padding: '6px 13px',
-      fontWeight: 'bold'
-    }
+      fontWeight: 'bold',
+    },
   };
   static propTypes = {
     json: PropTypes.any.isRequired,
@@ -36,7 +30,7 @@ export default class JSONViewer extends Component {
     tdProps: PropTypes.object,
     thProps: PropTypes.object,
     tbodyProps: PropTypes.object,
-    theadProps: PropTypes.object
+    theadProps: PropTypes.object,
   };
   static defaultProps = {};
   renderHeaderByKeys(keys, addExtra) {
@@ -54,11 +48,7 @@ export default class JSONViewer extends Component {
           })()}
           {keys.map((key, i) => {
             return (
-              <th
-                {...this.props.tdProps}
-                key={i}
-                style={this.constructor.styles.td}
-              >
+              <th {...this.props.tdProps} key={i} style={this.constructor.styles.td}>
                 <span style={{ color: 'rgb(111, 11, 11)' }}>{key}</span>
               </th>
             );
@@ -97,10 +87,7 @@ export default class JSONViewer extends Component {
             {loopObject(obj, (v, key) => {
               return (
                 <tr {...this.props.trProps}>
-                  <td
-                    {...this.props.tdProps}
-                    style={this.constructor.styles.td}
-                  >{`${key}`}</td>
+                  <td {...this.props.tdProps} style={this.constructor.styles.td}>{`${key}`}</td>
                   {this.renderTd(v, key)}
                 </tr>
               );
@@ -132,19 +119,13 @@ export default class JSONViewer extends Component {
       </table>
     );
   }
-
   renderTd(guess, index) {
     return (
-      <td
-        {...this.props.tdProps}
-        key={index}
-        style={this.constructor.styles.td}
-      >
+      <td {...this.props.tdProps} key={index} style={this.constructor.styles.td}>
         {this.decideAndRender(guess)}
       </td>
     );
   }
-
   decideAndRender(guess) {
     if (getType(guess) === 'Array') {
       if (checkIfArrayIsAOB(guess)) {

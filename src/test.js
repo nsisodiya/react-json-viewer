@@ -1,7 +1,7 @@
-import ExampleComponent from './'
+import JSONViewer from './';
 
-describe('ExampleComponent', () => {
+describe('JSONViewer', () => {
   it('is truthy', () => {
-    expect(ExampleComponent).toBeTruthy()
-  })
-})
+    expect(JSONViewer).toBeTruthy();
+  });
+});

@@ -1,6 +1,6 @@
 {
   "name": "react-json-viewer",
-  "version": "3.0.0",
+  "version": "3.0.1",
   "description": "React JSON Viewer Component. View JSON in beautiful tabular format.",
   "author": "nsisodiya",
   "license": "MIT",
@@ -22,9 +22,9 @@
     "deploy": "gh-pages -d example/build"
   },
   "peerDependencies": {
-    "prop-types": "^15.5.4",
-    "react": "^15.0.0",
-    "react-dom": "^15.0.0"
+    "prop-types": ">= 15.5.4",
+    "react": ">= 15.0.0",
+    "react-dom": ">= 15.0.0"
   },
   "devDependencies": {
     "@svgr/rollup": "^2.4.1",
